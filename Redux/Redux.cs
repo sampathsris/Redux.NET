@@ -12,14 +12,25 @@ namespace Redux
         /// <returns>The created Redux store.</returns>
         public static IStore CreateStore<T>(Reducer<T> reducer)
         {
-            if (typeof(T).IsValueType)
+            return new Store<T>(reducer);
+        }
+
+        /// <summary>
+        /// Gets the state of a store.
+        /// </summary>
+        /// <typeparam name="T">Expected type of the store state.</typeparam>
+        /// <param name="store">Store that is being queried.</param>
+        /// <returns>Current state of the store.</returns>
+        public static T GetState<T>(IStore store)
+        {
+            Store<T> realStore = store as Store<T>;
+
+            if (realStore == null)
             {
-                return new ValueTypeStore<T>(reducer);
+                throw new InvalidOperationException("Store does not contain the queried type.");
             }
-            else
-            {
-                return new ReferenceTypeStore<T>(reducer);
-            }
+
+            return realStore.State;
         }
     }
 }

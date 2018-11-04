@@ -3,7 +3,11 @@ using System.Collections.Generic;
 
 namespace Redux
 {
-    internal class ValueTypeStore<T>: IStore
+    /// <summary>
+    /// Represents a Redux store that holds a reference type.
+    /// </summary>
+    /// <typeparam name="T">Type of the state.</typeparam>
+    internal class Store<T>: IStore
     {
         private Reducer<T> reducer;
 
@@ -12,7 +16,7 @@ namespace Redux
         /// </summary>
         public T State { get; private set; }
 
-        public ValueTypeStore(Reducer<T> reducer)
+        public Store(Reducer<T> reducer)
         {
             this.reducer = reducer;
             // Initialize the store.
