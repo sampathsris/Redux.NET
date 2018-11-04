@@ -10,9 +10,9 @@ namespace CounterExample
 
         static void Main(string[] args)
         {
-            counterStore = Redux.Redux.CreateStore<int>(Counter.Reduce);
+            counterStore = Redux.Ops.CreateStore<int>(Counter.Reduce);
 
-            Console.WriteLine("Initial state: " + Redux.Redux.GetState<int>(counterStore)); // 0
+            Console.WriteLine("Initial state: " + Redux.Ops.GetState<int>(counterStore)); // 0
 
             SendAction(Counter.Increment()); // 1
             SendAction(Counter.Decrement()); // 0
@@ -32,7 +32,7 @@ namespace CounterExample
         {
             Console.WriteLine("Dispatching action: " + action);
             counterStore.Dispatch(action);
-            Console.WriteLine("State: " + Redux.Redux.GetState<int>(counterStore));
+            Console.WriteLine("State: " + Redux.Ops.GetState<int>(counterStore));
         }
     }
 }

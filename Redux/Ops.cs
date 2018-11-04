@@ -2,7 +2,7 @@
 
 namespace Redux
 {
-    public static class Redux
+    public static class Ops
     {
         /// <summary>
         /// Creates a Redux store that serves a given type T.
