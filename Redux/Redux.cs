@@ -12,7 +12,14 @@ namespace Redux
         /// <returns>The created Redux store.</returns>
         public static IStore CreateStore<T>(Reducer<T> reducer)
         {
-            throw new NotImplementedException();
+            if (typeof(T).IsValueType)
+            {
+                return new ValueTypeStore<T>(reducer);
+            }
+            else
+            {
+                return new ReferenceTypeStore<T>(reducer);
+            }
         }
     }
 }

@@ -8,6 +8,11 @@ namespace Redux
     public class Action
     {
         /// <summary>
+        /// Action used to initilize every redux store.
+        /// </summary>
+        internal static readonly Action __INIT__ = new Action("__INIT__");
+
+        /// <summary>
         /// Every Redux action has a mandatory Type property.
         /// </summary>
         public string Type
