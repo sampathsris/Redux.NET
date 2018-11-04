@@ -5,6 +5,14 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Redux", "Redux\Redux.csproj", "{730D8A0B-465B-4D66-922B-BFBAF7035F4E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{907E630F-8560-49BF-B59D-361CC6A66507}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Counter", "Counter", "{075F2904-6E3B-49C6-8CDF-EF133C8A61A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CounterExampleCore", "Examples\Counter\CounterExampleCore\CounterExampleCore.csproj", "{50D2B046-C6FD-477D-AA2F-49F849668DCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CounterExampleVanilla", "Examples\Counter\CounterExampleVanilla\CounterExampleVanilla.csproj", "{E27A0CB4-A0B1-4C64-95A2-09F245DB3715}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +23,21 @@ Global
 		{730D8A0B-465B-4D66-922B-BFBAF7035F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{730D8A0B-465B-4D66-922B-BFBAF7035F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{730D8A0B-465B-4D66-922B-BFBAF7035F4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50D2B046-C6FD-477D-AA2F-49F849668DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50D2B046-C6FD-477D-AA2F-49F849668DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50D2B046-C6FD-477D-AA2F-49F849668DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50D2B046-C6FD-477D-AA2F-49F849668DCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E27A0CB4-A0B1-4C64-95A2-09F245DB3715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E27A0CB4-A0B1-4C64-95A2-09F245DB3715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E27A0CB4-A0B1-4C64-95A2-09F245DB3715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E27A0CB4-A0B1-4C64-95A2-09F245DB3715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{075F2904-6E3B-49C6-8CDF-EF133C8A61A3} = {907E630F-8560-49BF-B59D-361CC6A66507}
+		{50D2B046-C6FD-477D-AA2F-49F849668DCD} = {075F2904-6E3B-49C6-8CDF-EF133C8A61A3}
+		{E27A0CB4-A0B1-4C64-95A2-09F245DB3715} = {075F2904-6E3B-49C6-8CDF-EF133C8A61A3}
 	EndGlobalSection
 EndGlobal
