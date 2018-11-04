@@ -16,7 +16,7 @@ namespace Redux
     /// <typeparam name="T">Type of the state.</typeparam>
     /// <param name="store">The store that publishes the event.</param>
     /// <param name="state">State of the store that publishes the event.</param>
-    internal delegate void StateChangedEventHandler<T>(
+    public delegate void StateChangedEventHandler<T>(
         IStore store,
         T state
     );
