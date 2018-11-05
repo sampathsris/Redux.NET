@@ -11,6 +11,7 @@ namespace CounterExample
         static void Main(string[] args)
         {
             counterStore = Redux.Ops.CreateStore<int>(Counter.Reduce);
+            Redux.Ops.Subscribe<int>(counterStore, CounterStoreStateChanged);
 
             Console.WriteLine("Initial state: " + Redux.Ops.GetState<int>(counterStore)); // 0
 
@@ -28,11 +29,15 @@ namespace CounterExample
             Console.ReadKey();
         }
 
+        private static void CounterStoreStateChanged(IStore store, int state)
+        {
+            Console.WriteLine("State: " + state);
+        }
+
         private static void SendAction(Redux.Action action)
         {
             Console.WriteLine("Dispatching action: " + action);
             counterStore.Dispatch(action);
-            Console.WriteLine("State: " + Redux.Ops.GetState<int>(counterStore));
         }
     }
 }
