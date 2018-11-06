@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Redux
 {
     /// <summary>
     /// Represents a Redux action with no accompanying payload.
     /// </summary>
-    public class Action
+    [Serializable]
+    public class Action : ISerializable
     {
         /// <summary>
         /// Action used to initilize every redux store.
@@ -39,6 +41,16 @@ namespace Redux
         public override string ToString()
         {
             return "Redux.Action, Type: " + Type;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Type", Type, typeof(string));
+        }
+
+        protected Action(SerializationInfo info, StreamingContext context)
+        {
+            Type = info.GetString("Type");
         }
     }
 
