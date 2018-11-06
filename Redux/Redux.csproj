@@ -40,7 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action.cs" />
+    <Compile Include="CombinedReducer.cs" />
     <Compile Include="Delegates.cs" />
+    <Compile Include="CombinedState.cs" />
+    <Compile Include="IReducer.cs" />
     <Compile Include="IStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ops.cs" />

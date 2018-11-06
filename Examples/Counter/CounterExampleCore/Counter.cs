@@ -1,26 +1,27 @@
-﻿
+﻿using Redux;
+
 namespace CounterExampleCore
 {
-    public static class Counter
+    public class Counter: IReducer<int>
     {
         const string INCREMENT = "INCREMENT";
         const string DECREMENT = "DECREMENT";
         const string CHANGE_BY = "CHANGE_BY";
 
-        static readonly Redux.Action ACTION_INCREMENT = new Redux.Action(INCREMENT);
-        static readonly Redux.Action ACTION_DECREMENT = new Redux.Action(DECREMENT);
+        static readonly Action ACTION_INCREMENT = new Action(INCREMENT);
+        static readonly Action ACTION_DECREMENT = new Action(DECREMENT);
 
-        public static Redux.Action Increment()
+        public static Action Increment()
         {
             return ACTION_INCREMENT;
         }
 
-        public static Redux.Action Decrement()
+        public static Action Decrement()
         {
             return ACTION_DECREMENT;
         }
 
-        public static Redux.Action ChangeBy(int amount)
+        public static Action ChangeBy(int amount)
         {
             if (amount == 1)
             {
@@ -32,11 +33,11 @@ namespace CounterExampleCore
             }
             else
             {
-                return new Redux.Action<int>(CHANGE_BY, amount);
+                return new Action<int>(CHANGE_BY, amount);
             }
         }
 
-        public static int Reduce(int state, Redux.Action action)
+        public int Reduce(int state, Action action)
         {
             switch (action.Type)
             {

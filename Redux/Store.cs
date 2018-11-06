@@ -7,16 +7,16 @@ namespace Redux
     /// Represents a Redux store that holds a reference type.
     /// </summary>
     /// <typeparam name="T">Type of the state.</typeparam>
-    internal class Store<T>: IStore
+    internal class Store<T> : IStore
     {
-        private Reducer<T> reducer;
+        private IReducer<T> reducer;
 
         /// <summary>
         /// Gets the current state of the store.
         /// </summary>
         public T State { get; private set; }
 
-        public Store(Reducer<T> reducer)
+        public Store(IReducer<T> reducer)
         {
             this.reducer = reducer;
             // Initialize the store.
@@ -36,7 +36,7 @@ namespace Redux
             }
 
             T oldState = State;
-            State = reducer(State, action);
+            State = reducer.Reduce(State, action);
 
             // Emit a StateChange event only if the state has changed.
             if (!EqualityComparer<T>.Default.Equals(oldState, State))

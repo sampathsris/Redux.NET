@@ -12,15 +12,19 @@ namespace CombinedApp
 
         static void Main(string[] args)
         {
-            IStore counter1Store = Redux.Ops.CreateStore<int>(Counter.Reduce);
-            IStore counter2Store = Redux.Ops.CreateStore<int>(Counter.Reduce);
-            IStore todoListStore = Redux.Ops.CreateStore<IDictionary<string, bool>>(ToDoList.Reduce);
+            var counterReducer = new Counter();
+            var toDoListReducer = new ToDoList();
 
-            IStore combinedStore = null; //TODO: Create combined store.
-            // TODO: Subscribe to store.
-            //combinedCounter.StateChanged += combinedStore_StateChanged;
+            var combinedReducer = Redux.Ops.CombineReducers(new Dictionary<string, object>()
+            {
+                { "counter", counterReducer },
+                { "todos",   toDoListReducer }
+            });
 
-            //Console.WriteLine("Initial state: " + combinedCounter.State); // 0
+            combinedStore = Redux.Ops.CreateStore<CombinedState>(combinedReducer);
+            Redux.Ops.Subscribe<CombinedState>(combinedStore, CombinedStateChanged);
+
+            Console.WriteLine("Initial state: " + Redux.Ops.GetState<CombinedState>(combinedStore));
 
             SendAction(Counter.Increment()); // 1
             SendAction(Counter.Decrement()); // 0
@@ -45,6 +49,11 @@ namespace CombinedApp
             SendAction(ToDoList.ToggleTodo(b));
             SendAction(ToDoList.ToggleTodo(b));
             Console.ReadKey();
+        }
+
+        private static void CombinedStateChanged(IStore store, CombinedState state)
+        {
+            Console.WriteLine(state);
         }
 
         private static void SendAction(Redux.Action action)

@@ -10,7 +10,7 @@ namespace CounterExample
 
         static void Main(string[] args)
         {
-            counterStore = Redux.Ops.CreateStore<int>(Counter.Reduce);
+            counterStore = Redux.Ops.CreateStore<int>(new Counter());
             Redux.Ops.Subscribe<int>(counterStore, CounterStoreStateChanged);
 
             Console.WriteLine("Initial state: " + Redux.Ops.GetState<int>(counterStore)); // 0
