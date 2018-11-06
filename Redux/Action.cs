@@ -48,6 +48,9 @@ namespace Redux
     /// <typeparam name="T">Type of payload</typeparam>
     public class Action<T> : Action
     {
+        /// <summary>
+        /// Other data associated with the action, apart from action's Type.
+        /// </summary>
         public T Payload { get; private set; }
 
         public Action(string type, T payload)
