@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Redux
 {
     /// <summary>
     /// Represents a Redux action with no accompanying payload.
     /// </summary>
+    [Serializable]
     public class Action
     {
         /// <summary>
@@ -40,12 +42,31 @@ namespace Redux
         {
             return "Redux.Action, Type: " + Type;
         }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("Type", Type, typeof(string));
+        }
+
+        protected Action(SerializationInfo info, StreamingContext context)
+        {
+            Type = info.GetString("Type");
+        }
     }
 
     /// <summary>
     /// A generic action that can carry a payload of a given type.
+    /// 
+    /// <b>Note: </b>This class is marked with the <code>SystemSerilizableAttribute</code>
+    /// in order to enable serialization. However, its true ability to serialize depends
+    /// on the serializability of the Payload. There is not compile time or runtime type
+    /// safety checks to ensure serializability of Paylaod, and this is done to keep the
+    /// class flexible such that non-serializable types can be used as a payload. If you
+    /// must serialize actions (for example, to save a list of actions to a file), then
+    /// you must use a serializable type for Payload.
     /// </summary>
     /// <typeparam name="T">Type of payload</typeparam>
+    [Serializable]
     public class Action<T> : Action
     {
         /// <summary>
