@@ -43,6 +43,7 @@
     <Compile Include="CombinedReducer.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="CombinedState.cs" />
+    <Compile Include="ExtensionOps.cs" />
     <Compile Include="IReducer.cs" />
     <Compile Include="IStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

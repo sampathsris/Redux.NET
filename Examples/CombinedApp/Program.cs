@@ -15,16 +15,16 @@ namespace CombinedApp
             var counterReducer = new Counter();
             var toDoListReducer = new ToDoList();
 
-            var combinedReducer = Redux.Ops.CombineReducers(new Dictionary<string, object>()
+            var combinedReducer = Ops.CombineReducers(new Dictionary<string, object>()
             {
                 { "counter", counterReducer },
                 { "todos",   toDoListReducer }
             });
 
-            combinedStore = Redux.Ops.CreateStore<CombinedState>(combinedReducer);
-            Redux.Ops.Subscribe<CombinedState>(combinedStore, CombinedStateChanged);
+            combinedStore = Ops.CreateStore<CombinedState>(combinedReducer);
+            combinedStore.Subscribe<CombinedState>(CombinedStateChanged);
 
-            Console.WriteLine("Initial state: " + Redux.Ops.GetState<CombinedState>(combinedStore));
+            Console.WriteLine("Initial state: " + combinedStore.GetState<CombinedState>());
 
             SendAction(Counter.Increment()); // 1
             SendAction(Counter.Decrement()); // 0
