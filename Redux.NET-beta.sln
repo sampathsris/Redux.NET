@@ -23,6 +23,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CombinedApp", "CombinedApp"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CombinedApp", "Examples\CombinedApp\CombinedApp.csproj", "{B2011FB1-4250-422F-B8F0-DD13B6ED896B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EAFA842E-2E38-4FA6-9F52-A1180CB260CC}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
