@@ -8,17 +8,17 @@ namespace ToDoListExampleCore
         const string ADD_TODO = "ADD_TODO";
         const string TOGGLE_TODO = "TOGGLE_TODO";
 
-        public static Action AddTodo(string todo)
+        public static ReduxAction AddTodo(string todo)
         {
-            return new Action<string>(ADD_TODO, todo);
+            return new ReduxAction<string>(ADD_TODO, todo);
         }
 
-        public static Action ToggleTodo(string todo)
+        public static ReduxAction ToggleTodo(string todo)
         {
-            return new Action<string>(TOGGLE_TODO, todo);
+            return new ReduxAction<string>(TOGGLE_TODO, todo);
         }
 
-        public IDictionary<string, bool> Reduce(IDictionary<string, bool> state, Action action)
+        public IDictionary<string, bool> Reduce(IDictionary<string, bool> state, ReduxAction action)
         {
             if (state == null)
             {
@@ -30,7 +30,7 @@ namespace ToDoListExampleCore
 
             if (action.Type == ADD_TODO || action.Type == TOGGLE_TODO)
             {
-                todo = (action as Redux.Action<string>).Payload;
+                todo = (action as ReduxAction<string>).Payload;
             }
 
             switch (action.Type)

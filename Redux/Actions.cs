@@ -7,12 +7,12 @@ namespace Redux
     /// Represents a Redux action with no accompanying payload.
     /// </summary>
     [Serializable]
-    public class Action
+    public class ReduxAction
     {
         /// <summary>
         /// Action used to initilize every redux store.
         /// </summary>
-        internal static readonly Action __INIT__ = new Action("__INIT__");
+        internal static readonly ReduxAction __INIT__ = new ReduxAction("__INIT__");
 
         /// <summary>
         /// Every Redux action has a mandatory Type property.
@@ -28,7 +28,7 @@ namespace Redux
         /// Creates an Action object.
         /// </summary>
         /// <param name="type">Type of the Redux action.</param>
-        public Action(string type)
+        public ReduxAction(string type)
         {
             if (type == null)
             {
@@ -40,7 +40,7 @@ namespace Redux
 
         public override string ToString()
         {
-            return "Redux.Action, Type: " + Type;
+            return "ReduxAction, Type: " + Type;
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -48,7 +48,7 @@ namespace Redux
             info.AddValue("Type", Type, typeof(string));
         }
 
-        protected Action(SerializationInfo info, StreamingContext context)
+        protected ReduxAction(SerializationInfo info, StreamingContext context)
         {
             Type = info.GetString("Type");
         }
@@ -67,14 +67,14 @@ namespace Redux
     /// </summary>
     /// <typeparam name="T">Type of payload</typeparam>
     [Serializable]
-    public class Action<T> : Action
+    public class ReduxAction<T> : ReduxAction
     {
         /// <summary>
         /// Other data associated with the action, apart from action's Type.
         /// </summary>
         public T Payload { get; private set; }
 
-        public Action(string type, T payload)
+        public ReduxAction(string type, T payload)
             : base(type)
         {
             Payload = payload;

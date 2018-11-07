@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Action.cs" />
+    <Compile Include="Actions.cs" />
     <Compile Include="CombinedReducer.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="CombinedState.cs" />

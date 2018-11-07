@@ -8,20 +8,20 @@ namespace CounterExampleCore
         const string DECREMENT = "DECREMENT";
         const string CHANGE_BY = "CHANGE_BY";
 
-        static readonly Action ACTION_INCREMENT = new Action(INCREMENT);
-        static readonly Action ACTION_DECREMENT = new Action(DECREMENT);
+        static readonly ReduxAction ACTION_INCREMENT = new ReduxAction(INCREMENT);
+        static readonly ReduxAction ACTION_DECREMENT = new ReduxAction(DECREMENT);
 
-        public static Action Increment()
+        public static ReduxAction Increment()
         {
             return ACTION_INCREMENT;
         }
 
-        public static Action Decrement()
+        public static ReduxAction Decrement()
         {
             return ACTION_DECREMENT;
         }
 
-        public static Action ChangeBy(int amount)
+        public static ReduxAction ChangeBy(int amount)
         {
             if (amount == 1)
             {
@@ -33,11 +33,11 @@ namespace CounterExampleCore
             }
             else
             {
-                return new Action<int>(CHANGE_BY, amount);
+                return new ReduxAction<int>(CHANGE_BY, amount);
             }
         }
 
-        public int Reduce(int state, Action action)
+        public int Reduce(int state, ReduxAction action)
         {
             switch (action.Type)
             {
@@ -46,7 +46,7 @@ namespace CounterExampleCore
                 case DECREMENT:
                     return state - 1;
                 case CHANGE_BY:
-                    return state + (action as Redux.Action<int>).Payload;
+                    return state + (action as ReduxAction<int>).Payload;
                 default:
                     return state;
             }

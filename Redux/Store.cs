@@ -20,14 +20,14 @@ namespace Redux
         {
             this.reducer = reducer;
             // Initialize the store.
-            Dispatch(Action.__INIT__);
+            Dispatch(ReduxAction.__INIT__);
         }
 
         /// <summary>
         /// Dispatches an action to the Store.
         /// </summary>
         /// <param name="action">Action to be dispatched.</param>
-        public void Dispatch(Action action)
+        public void Dispatch(ReduxAction action)
         {
             // Action must not be null.
             if (action == null)

@@ -15,7 +15,7 @@ namespace Redux
             this.reducers = reducers;
         }
 
-        public CombinedState Reduce(CombinedState state, Action action)
+        public CombinedState Reduce(CombinedState state, ReduxAction action)
         {
             var nextState = new CombinedState(reducers);
 

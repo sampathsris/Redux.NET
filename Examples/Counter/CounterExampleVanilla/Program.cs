@@ -21,7 +21,7 @@ namespace CounterExample
             SendAction(Counter.Increment()); // 2
 
             // Shouldn't output anything.
-            SendAction(new Redux.Action("DUMMY_ACTION"));
+            SendAction(new ReduxAction("DUMMY_ACTION"));
 
             SendAction(Counter.ChangeBy(-3)); // -1
             SendAction(Counter.ChangeBy(5));  // 4
@@ -34,7 +34,7 @@ namespace CounterExample
             Console.WriteLine("State: " + state);
         }
 
-        private static void SendAction(Redux.Action action)
+        private static void SendAction(ReduxAction action)
         {
             Console.WriteLine("Dispatching action: " + action);
             counterStore.Dispatch(action);

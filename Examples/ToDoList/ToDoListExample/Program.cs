@@ -37,7 +37,7 @@ namespace ToDoListExample
             ));
         }
 
-        private static void SendAction(Redux.Action action)
+        private static void SendAction(ReduxAction action)
         {
             Console.WriteLine("Dispatching action: " + action);
             todoListStore.Dispatch(action);

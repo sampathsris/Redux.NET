@@ -13,6 +13,6 @@ namespace Redux
         /// <param name="state">State before the reduction.</param>
         /// <param name="action">Action used for the reduction.</param>
         /// <returns>State after the reduction.</returns>
-        T Reduce(T state, Action action);
+        T Reduce(T state, ReduxAction action);
     }
 }
