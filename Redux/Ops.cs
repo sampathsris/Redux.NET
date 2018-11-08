@@ -95,7 +95,7 @@ namespace Redux
                     // Get the wrapped dispatcher by calling the composed middleware.
                     dispatch = composedMiddleware(store.Dispatch);
 
-                    return new MiddlewareEnhancedStore<T>(api);
+                    return new MiddlewareEnhancedStore<T>(api, store);
             };
         }
 
@@ -121,6 +121,7 @@ namespace Redux
             {
                 throw new InvalidOperationException("Store does not contain the queried type.");
             }
+
             return realStore;
         }
     }

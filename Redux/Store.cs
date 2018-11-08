@@ -48,15 +48,15 @@ namespace Redux
             // Emit a StateChange event only if the state has changed.
             if (!EqualityComparer<T>.Default.Equals(oldState, State))
             {
-                OnStateChange();
+                OnStateChange(State);
             }
         }
 
-        private void OnStateChange()
+        protected void OnStateChange(T state)
         {
             if (StateChanged != null)
             {
-                StateChanged(this, State);
+                StateChanged(this, state);
             }
         }
 

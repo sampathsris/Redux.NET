@@ -15,7 +15,6 @@ namespace CounterExamplePreloaded
             var counterReducer = new Counter();
             // Create the store with preloaded value of 100.
             counterStore = Ops.CreateStore<int>(counterReducer, () => 100, enhancer);
-            counterStore.Subscribe<int>(CounterStoreStateChanged);
 
             Console.WriteLine("Initial state: " + counterStore.GetState<int>()); // 0
 
@@ -31,11 +30,6 @@ namespace CounterExamplePreloaded
             counterStore.Dispatch(Counter.ChangeBy(5));  // 104
 
             Console.ReadKey();
-        }
-
-        private static void CounterStoreStateChanged(IStore store, int state)
-        {
-            Console.WriteLine("State: " + state);
         }
     }
 }
