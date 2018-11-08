@@ -12,8 +12,17 @@ namespace Redux
         /// <typeparam name="T">Type of the reduced state.</typeparam>
         /// <param name="reducer">Reducer function.</param>
         /// <returns>The created Redux store.</returns>
-        public static IStore CreateStore<T>(IReducer<T> reducer)
+        public static IStore CreateStore<T>(
+            IReducer<T> reducer,
+            StoreEnhancer<T> enhancer = null)
         {
+            // if we have an enhancer, we want to call an enhanced CreateStore
+            // function that is returned by the enhancer.
+            if (enhancer != null)
+            {
+                return enhancer(CreateStore)(reducer);
+            }
+
             return new Store<T>(reducer);
         }
 
