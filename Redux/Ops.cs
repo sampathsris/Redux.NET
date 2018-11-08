@@ -14,16 +14,17 @@ namespace Redux
         /// <returns>The created Redux store.</returns>
         public static IStore CreateStore<T>(
             IReducer<T> reducer,
+            Func<T> getPreloadedState = null,
             StoreEnhancer<T> enhancer = null)
         {
             // if we have an enhancer, we want to call an enhanced CreateStore
             // function that is returned by the enhancer.
             if (enhancer != null)
             {
-                return enhancer(CreateStore)(reducer);
+                return enhancer(CreateStore)(reducer, getPreloadedState);
             }
 
-            return new Store<T>(reducer);
+            return new Store<T>(reducer, getPreloadedState);
         }
 
         /// <summary>
@@ -62,9 +63,9 @@ namespace Redux
         public static StoreEnhancer<T> ApplyMiddleware<T>(params Middleware<T>[] middlewareList)
         {
             return (StoreCreator<T> storeCreator) =>
-                (IReducer<T> reducer, StoreEnhancer<T> enhancer) =>
+                (IReducer<T> reducer, Func<T> getPreloadedState, StoreEnhancer<T> enhancer) =>
                 {
-                    IStore store = storeCreator(reducer, enhancer);
+                    IStore store = storeCreator(reducer, getPreloadedState, enhancer);
 
                     // Create a dummy dispatcher. This will be later assigned with
                     // the dispatcher created by composing middleware.

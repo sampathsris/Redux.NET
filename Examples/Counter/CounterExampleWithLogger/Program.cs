@@ -17,7 +17,7 @@ namespace CounterExampleWithLogger
             var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware<int>();
             var enhancer = Ops.ApplyMiddleware<int>(loggerMiddleware);
             var counterReducer = new Counter();
-            counterStore = Ops.CreateStore<int>(counterReducer, enhancer);
+            counterStore = Ops.CreateStore<int>(counterReducer, enhancer: enhancer);
             counterStore.Subscribe<int>(CounterStoreStateChanged);
 
             Console.WriteLine("Initial state: " + counterStore.GetState<int>()); // 0

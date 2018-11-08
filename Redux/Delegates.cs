@@ -18,9 +18,16 @@ namespace Redux
     /// </summary>
     /// <typeparam name="T">Type of the stored state.</typeparam>
     /// <param name="reducer">Reducer used on the state.</param>
+    /// <param name="getPreloadedState">A function that returns the preloaded
+    /// state for the store initiliazation.</param>
+    /// <param name="enhancer">A store enhancer. See StoreEnhancer.</param>
     /// <returns>A redux store.</returns>
     public delegate IStore StoreCreator<T>(
         IReducer<T> reducer,
+        // Why is this parameter `Func<T> getPreloadedState` instead of
+        // `T preloadedState`? The answer is: it should be an optional parameter,
+        // but if T is a value type, we cannot do that.
+        Func<T> getPreloadedState = null,
         StoreEnhancer<T> enhancer = null
     );
 

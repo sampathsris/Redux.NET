@@ -11,7 +11,7 @@ namespace Redux
         private MiddlewareAPI<T> api = NULL_API;
 
         public MiddlewareEnhancedStore(MiddlewareAPI<T> api)
-            : base(new IdentityReducer<T>())
+            : base(new IdentityReducer<T>(), null)
         {
             this.api = api;
         }

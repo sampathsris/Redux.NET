@@ -16,9 +16,16 @@ namespace Redux
         /// </summary>
         public T State { get; private set; }
 
-        public Store(IReducer<T> reducer)
+        public Store(IReducer<T> reducer, Func<T> getPreloadedState)
         {
             this.reducer = reducer;
+
+            // Preload state.
+            if (getPreloadedState != null)
+            {
+                State = getPreloadedState();
+            }
+
             // Initialize the store.
             Dispatch(ReduxAction.__INIT__);
         }
