@@ -27,8 +27,8 @@ namespace Redux
         // Why is this parameter `Func<T> getPreloadedState` instead of
         // `T preloadedState`? The answer is: it should be an optional parameter,
         // but if T is a value type, we cannot do that.
-        Func<T> getPreloadedState = null,
-        StoreEnhancer<T> enhancer = null
+        Func<T> getPreloadedState,
+        StoreEnhancer<T> enhancer
     );
 
     /// <summary>
@@ -65,6 +65,6 @@ namespace Redux
     /// middleware, and returns another, possibly different dispatch function.
     /// </returns>
     public delegate MiddlewareImplementation<T> Middleware<T>(
-        MiddlewareAPI<T> api
+        MiddlewareApi<T> api
     );
 }

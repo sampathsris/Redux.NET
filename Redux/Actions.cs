@@ -17,7 +17,7 @@ namespace Redux
         /// <summary>
         /// Every Redux action has a mandatory Type property.
         /// </summary>
-        public string Type
+        public string ActionType
         {
             get;
             // Only the constructor may set the action's Type during initialization.
@@ -32,25 +32,27 @@ namespace Redux
         {
             if (type == null)
             {
-                throw new ArgumentNullException("Type", "Type must not be null when creating an Action.");
+                throw new ArgumentNullException("type", "Type must not be null when creating an Action.");
             }
 
-            Type = type;
+            ActionType = type;
         }
 
         public override string ToString()
         {
-            return "ReduxAction, Type: " + Type;
+            return "ReduxAction, Type: " + ActionType;
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData(SerializationInfo info)
         {
-            info.AddValue("Type", Type, typeof(string));
+            if (info == null) throw new ArgumentNullException("info");
+            info.AddValue("Type", ActionType, typeof(string));
         }
 
-        protected ReduxAction(SerializationInfo info, StreamingContext context)
+        protected ReduxAction(SerializationInfo info)
         {
-            Type = info.GetString("Type");
+            if (info == null) throw new ArgumentNullException("info");
+            ActionType = info.GetString("Type");
         }
     }
 

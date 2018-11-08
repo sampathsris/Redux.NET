@@ -36,7 +36,7 @@ namespace Redux
             // Action must not be null.
             if (action == null)
             {
-                throw new ArgumentNullException("Action", "Action must not be null when calling Dispatch.");
+                throw new ArgumentNullException("action", "Action must not be null when calling Dispatch.");
             }
 
             T oldState = State;

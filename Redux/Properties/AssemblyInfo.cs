@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Redux")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A predictable state container for Microsoft.NET applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Redux")]
@@ -34,3 +35,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]
+[assembly: System.CLSCompliant(true)]

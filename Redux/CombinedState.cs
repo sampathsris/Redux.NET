@@ -38,13 +38,6 @@ namespace Redux
             set { componentStates[component] = value; }
         }
 
-        internal CombinedState Copy()
-        {
-            var newObj = new CombinedState();
-            newObj.componentStates = new Dictionary<string, object>(this.componentStates);
-            return newObj;
-        }
-
         /// <summary>
         /// Gets the state of a given component from the CombinedState.
         /// </summary>

@@ -13,9 +13,40 @@ namespace Redux
         /// <param name="reducer">Reducer function.</param>
         /// <returns>The created Redux store.</returns>
         public static IStore CreateStore<T>(
+            IReducer<T> reducer)
+        {
+            return CreateStore<T>(reducer, null, null);
+        }
+
+        /// <summary>
+        /// Creates a Redux store that serves a given type T with pre-loaded state.
+        /// </summary>
+        /// <typeparam name="T">Type of the reduced state.</typeparam>
+        /// <param name="reducer">Reducer function.</param>
+        /// <param name="getPreloadedState">A function that can be called to retrieve
+        /// the initial state to pre-load the store.</param>
+        /// <returns>The created Redux store.</returns>
+        public static IStore CreateStore<T>(
             IReducer<T> reducer,
-            Func<T> getPreloadedState = null,
-            StoreEnhancer<T> enhancer = null)
+            Func<T> getPreloadedState)
+        {
+            return CreateStore<T>(reducer, getPreloadedState, null);
+        }
+
+        /// <summary>
+        /// Creates a Redux store that serves a given type T with pre-loaded state and
+        /// an enhancer.
+        /// </summary>
+        /// <typeparam name="T">Type of the reduced state.</typeparam>
+        /// <param name="reducer">Reducer function.</param>
+        /// <param name="getPreloadedState">A function that can be called to retrieve
+        /// the initial state to pre-load the store.</param>
+        /// <param name="enhancer">Enhancer function that enhances the store.</param>
+        /// <returns>The created Redux store.</returns>
+        public static IStore CreateStore<T>(
+            IReducer<T> reducer,
+            Func<T> getPreloadedState,
+            StoreEnhancer<T> enhancer)
         {
             IStore store;
 
@@ -23,7 +54,7 @@ namespace Redux
             // function that is returned by the enhancer.
             if (enhancer != null)
             {
-                store = enhancer(CreateStore)(reducer, getPreloadedState);
+                store = enhancer(CreateStore)(reducer, getPreloadedState, null);
             }
             else
             {
@@ -47,6 +78,8 @@ namespace Redux
         /// <returns>A combined reducer.</returns>
         public static IReducer<CombinedState> CombineReducers(IDictionary<string, object> reducerMapping)
         {
+            if (reducerMapping == null) throw new ArgumentNullException("reducerMapping");
+
             foreach (var reducerkvp in reducerMapping)
             {
                 // Check if each of the reducers are valid reducers. We simply check if the
@@ -81,12 +114,12 @@ namespace Redux
                     // Create a dummy dispatcher. This will be later assigned with
                     // the dispatcher created by composing middleware.
                     Action<ReduxAction> dispatch = (ReduxAction action) => {
-                        throw new Exception(
+                        throw new System.InvalidOperationException(
                             "Dispatching while constructing the middleware is not " +
                             "allowed. Other middleware would not be applied.");
                     };
 
-                    MiddlewareAPI<T> api = new MiddlewareAPI<T> {
+                    MiddlewareApi<T> api = new MiddlewareApi<T> {
                         // Do not assign `dispatch` to `Disptach`, but implement a lambda
                         // that calls `dispatch`. This is because `dispatch` will change
                         // later.

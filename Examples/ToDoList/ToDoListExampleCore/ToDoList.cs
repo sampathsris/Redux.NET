@@ -28,12 +28,12 @@ namespace ToDoListExampleCore
             Dictionary<string, bool> newTodoList = null;
             string todo = null;
 
-            if (action.Type == ADD_TODO || action.Type == TOGGLE_TODO)
+            if (action.ActionType == ADD_TODO || action.ActionType == TOGGLE_TODO)
             {
                 todo = (action as ReduxAction<string>).Payload;
             }
 
-            switch (action.Type)
+            switch (action.ActionType)
             {
                 case ADD_TODO:
                     newTodoList = new Dictionary<string, bool>(state);

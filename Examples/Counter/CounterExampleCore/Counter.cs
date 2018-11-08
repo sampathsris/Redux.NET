@@ -39,7 +39,7 @@ namespace CounterExampleCore
 
         public int Reduce(int state, ReduxAction action)
         {
-            switch (action.Type)
+            switch (action.ActionType)
             {
                 case INCREMENT:
                     return state + 1;

@@ -3,19 +3,17 @@ namespace Redux
 {
     internal class MiddlewareEnhancedStore<T> : Store<T>, IStore
     {
-        private static MiddlewareAPI<T> NULL_API = new MiddlewareAPI<T>
+        private static MiddlewareApi<T> NULL_API = new MiddlewareApi<T>
         {
             Dispatch = (action) => { }
         };
 
-        private MiddlewareAPI<T> api = NULL_API;
-        private IStore store;
+        private MiddlewareApi<T> api = NULL_API;
 
-        public MiddlewareEnhancedStore(MiddlewareAPI<T> api, IStore store)
+        public MiddlewareEnhancedStore(MiddlewareApi<T> api, IStore store)
             : base(new IdentityReducer<T>(), null)
         {
             this.api = api;
-            this.store = store;
             store.Subscribe<T>(OnInnerStoreStateChange);
         }
 

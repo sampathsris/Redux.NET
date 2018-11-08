@@ -2,9 +2,10 @@
 
 namespace Redux
 {
-    public struct MiddlewareAPI<T>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1815:OverrideEqualsAndOperatorEqualsOnValueTypes")]
+    public struct MiddlewareApi<T>
     {
-        public Action<ReduxAction> Dispatch;
-        public Func<T> GetState;
+        internal Action<ReduxAction> Dispatch;
+        internal Func<T> GetState;
     }
 }
