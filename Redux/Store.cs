@@ -27,7 +27,7 @@ namespace Redux
         /// Dispatches an action to the Store.
         /// </summary>
         /// <param name="action">Action to be dispatched.</param>
-        public void Dispatch(ReduxAction action)
+        public virtual void Dispatch(ReduxAction action)
         {
             // Action must not be null.
             if (action == null)

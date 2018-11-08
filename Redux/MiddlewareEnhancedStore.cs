@@ -3,7 +3,12 @@ namespace Redux
 {
     internal class MiddlewareEnhancedStore<T> : Store<T>
     {
-        private MiddlewareAPI<T> api;
+        private static MiddlewareAPI<T> NULL_API = new MiddlewareAPI<T>
+        {
+            Dispatch = (action) => { }
+        };
+
+        private MiddlewareAPI<T> api = NULL_API;
 
         public MiddlewareEnhancedStore(MiddlewareAPI<T> api)
             : base(new IdentityReducer<T>())
@@ -15,7 +20,7 @@ namespace Redux
             get { return api.GetState(); }
         }
 
-        public new void Dispatch(ReduxAction action)
+        public override void Dispatch(ReduxAction action)
         {
             api.Dispatch(action);
         }
