@@ -1,4 +1,5 @@
 ﻿
+using System;
 namespace Redux
 {
     /// <summary>
@@ -32,5 +33,31 @@ namespace Redux
     /// <returns>Enhanced StoreCreator.</returns>
     public delegate StoreCreator<T> StoreEnhancer<T>(
         StoreCreator<T> storeCreator
+    );
+
+    /// <summary>
+    /// Represents an implementation of a middleware. This is a function that
+    /// accepts the dispatch function of the next middleware in the middleware
+    /// chain, and returns another, possibly different dispatch function.
+    /// </summary>
+    /// <typeparam name="T">Type of the store on which the middleware is working</typeparam>
+    /// <param name="next">Next middleware in the chain.</param>
+    /// <returns>A function which may or may not call the next middleware with
+    /// a potentially different argument, and/or even at a later time.</returns>
+    public delegate Action<ReduxAction> MiddlewareImplementation<T>(
+        Action<ReduxAction> next
+    );
+
+    /// <summary>
+    /// Represents a Redux middleware.
+    /// </summary>
+    /// <typeparam name="T">Type of the state of the store on which the
+    /// middleware will operate.</typeparam>
+    /// <param name="api">MiddlewareAPI that is passed to the middleware.</param>
+    /// <returns>A function which accepts the dispatch function of the next
+    /// middleware, and returns another, possibly different dispatch function.
+    /// </returns>
+    public delegate MiddlewareImplementation<T> Middleware<T>(
+        MiddlewareAPI<T> api
     );
 }

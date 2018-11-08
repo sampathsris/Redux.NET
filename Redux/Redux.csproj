@@ -44,8 +44,11 @@
     <Compile Include="Delegates.cs" />
     <Compile Include="CombinedState.cs" />
     <Compile Include="ExtensionOps.cs" />
+    <Compile Include="IdentityReducer.cs" />
+    <Compile Include="MiddlewareAPI.cs" />
     <Compile Include="IReducer.cs" />
     <Compile Include="IStore.cs" />
+    <Compile Include="MiddlewareEnhancedStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ops.cs" />
     <Compile Include="Store.cs" />
