@@ -25,9 +25,6 @@ namespace Redux
             {
                 State = getPreloadedState();
             }
-
-            // Initialize the store.
-            Dispatch(ReduxAction.__INIT__);
         }
 
         /// <summary>

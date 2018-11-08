@@ -17,14 +17,25 @@ namespace Redux
             Func<T> getPreloadedState = null,
             StoreEnhancer<T> enhancer = null)
         {
+            IStore store;
+
             // if we have an enhancer, we want to call an enhanced CreateStore
             // function that is returned by the enhancer.
             if (enhancer != null)
             {
-                return enhancer(CreateStore)(reducer, getPreloadedState);
+                store = enhancer(CreateStore)(reducer, getPreloadedState);
+            }
+            else
+            {
+                store = new Store<T>(reducer, getPreloadedState);
             }
 
-            return new Store<T>(reducer, getPreloadedState);
+            // Initialize the store.
+            // Why not call this within the Store<T>'s constructor? Because it would violate:
+            // https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2214-do-not-call-overridable-methods-in-constructors?view=vs-2017
+            store.Dispatch(ReduxAction.__INIT__);
+
+            return store;
         }
 
         /// <summary>
