@@ -56,10 +56,10 @@ namespace Redux
         /// Takes a list of middleware and converts them into an store enhancer.
         /// </summary>
         /// <typeparam name="T">Type of the state of the target store.</typeparam>
-        /// <param name="middleware">A parameter list of middleware to compose.</param>
+        /// <param name="middlewareList">A parameter list of middleware to compose.</param>
         /// <returns>An enhancer function returns an enhanced CreateStore method,
         /// which will bind middleware to the created store.</returns>
-        public static StoreEnhancer<T> ApplyMiddleware<T>(params Middleware<T>[] middleware)
+        public static StoreEnhancer<T> ApplyMiddleware<T>(params Middleware<T>[] middlewareList)
         {
             return (StoreCreator<T> storeCreator) =>
                 (IReducer<T> reducer, StoreEnhancer<T> enhancer) =>
@@ -75,21 +75,31 @@ namespace Redux
                     };
 
                     MiddlewareAPI<T> api = new MiddlewareAPI<T> {
+                        // Do not assign `dispatch` to `Disptach`, but implement a lambda
+                        // that calls `dispatch`. This is because `dispatch` will change
+                        // later.
                         Dispatch = (action) => dispatch(action),
                         GetState = () => store.GetState<T>()
                     };
 
-                    var chain = middleware.Select<Middleware<T>, MiddlewareImplementation<T>>(
-                        mw => mw(api)
-                    ).ToArray();
-                    dispatch = MiddlewareCompose<T>(chain)(store.Dispatch);
+                    // Map each middleware to a function that accepts the middleware and
+                    // calls it with the MiddlewareAPI.
+                    IEnumerable<MiddlewareImplementation<T>> chain = middlewareList
+                        .Select<Middleware<T>, MiddlewareImplementation<T>>(
+                            middleware => middleware(api));
+
+                    // Compose the functions in the above list into a single middleware.
+                    MiddlewareImplementation<T> composedMiddleware = MiddlewareCompose<T>(chain);
+
+                    // Get the wrapped dispatcher by calling the composed middleware.
+                    dispatch = composedMiddleware(store.Dispatch);
 
                     return new MiddlewareEnhancedStore<T>(api);
             };
         }
 
         internal static MiddlewareImplementation<T> MiddlewareCompose<T>(
-            params MiddlewareImplementation<T>[] chain)
+            IEnumerable<MiddlewareImplementation<T>> chain)
         {
             // If the list of functions is a, b, c, ..., z then this will compose the functions
             // such that the returned function is (arg) => a(b(c(...(z(arg))...))).

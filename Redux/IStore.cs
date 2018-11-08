@@ -1,6 +1,9 @@
 ﻿
 namespace Redux
 {
+    /// <summary>
+    /// Represents a Redux store.
+    /// </summary>
     public interface IStore
     {
         /// <summary>

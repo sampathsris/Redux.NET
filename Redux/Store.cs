@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Redux
 {
     /// <summary>
-    /// Represents a Redux store that holds a reference type.
+    /// Represents a Redux store that manages the state of type T.
     /// </summary>
     /// <typeparam name="T">Type of the state.</typeparam>
     internal class Store<T> : IStore
