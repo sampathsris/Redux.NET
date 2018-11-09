@@ -11,7 +11,7 @@ namespace Redux
         /// <returns>Current state of the store.</returns>
         public static TState GetState<TState>(this IStore store)
         {
-            return Ops.GetStore<TState>(store).State;
+            return Ops.GetStore<TState>(store).GetState();
         }
 
         /// <summary>

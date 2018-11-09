@@ -18,6 +18,7 @@ namespace CounterExampleWithLogger
             var enhancer = Ops.ApplyMiddleware<int>(loggerMiddleware);
             var counterReducer = new Counter();
             counterStore = Ops.CreateStore<int>(counterReducer, null, enhancer);
+            counterStore.Subscribe<int>(CounterStoreStateChanged);
 
             Console.WriteLine("Initial state: " + counterStore.GetState<int>()); // 0
 
@@ -33,6 +34,11 @@ namespace CounterExampleWithLogger
             counterStore.Dispatch(Counter.ChangeBy(5));  // 4
 
             Console.ReadKey();
+        }
+
+        private static void CounterStoreStateChanged(IStore store, int state)
+        {
+            Console.WriteLine("CounterStoreStateChanged: {0}", state);
         }
     }
 }

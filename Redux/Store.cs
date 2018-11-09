@@ -9,21 +9,44 @@ namespace Redux
     /// <typeparam name="TState">Type of the state.</typeparam>
     internal class Store<TState> : IStore
     {
-        private IReducer<TState> reducer;
+        /// <summary>
+        /// The reducer that is used by the store.
+        /// </summary>
+        public IReducer<TState> Reducer { get; private set; }
 
         /// <summary>
-        /// Gets the current state of the store.
+        /// The dispatcher that is invoked from the IStore.Dispatch implementation.
         /// </summary>
-        public TState State { get; private set; }
+        // both get and set needs to be protected, because if get was public,
+        // anyone can invoke the dispatcher.
+        protected Action<ReduxAction> Dispatcher { get; set; }
+
+        private TState state;
+
+        /// <summary>
+        /// When invoked, returns the current state of the store.
+        /// </summary>
+        // setter needs to be protected, because only subclasses should be able to
+        // replace it.
+        public Func<TState> GetState { get; protected set; }
 
         public Store(IReducer<TState> reducer, Func<TState> getPreloadedState)
         {
-            this.reducer = reducer;
+            Reducer = reducer;
+
+            // initialize dispatcher.
+            Dispatcher = (action) =>
+            {
+                state = reducer.Reduce(state, action);
+            };
+
+            // initialize the state getter.
+            GetState = () => state;
 
             // Preload state.
             if (getPreloadedState != null)
             {
-                State = getPreloadedState();
+                state = getPreloadedState();
             }
         }
 
@@ -31,7 +54,7 @@ namespace Redux
         /// Dispatches an action to the Store.
         /// </summary>
         /// <param name="action">Action to be dispatched.</param>
-        public virtual void Dispatch(ReduxAction action)
+        public void Dispatch(ReduxAction action)
         {
             // Action must not be null.
             if (action == null)
@@ -39,21 +62,27 @@ namespace Redux
                 throw new ArgumentNullException("action", "Action must not be null when calling Dispatch.");
             }
 
-            TState oldState = State;
-            State = reducer.Reduce(State, action);
+            TState currentState = GetState();
+            InvokeDispatcher(action);
+            TState nextState = GetState();
 
             // Emit a StateChange event only if the state has changed.
-            if (!EqualityComparer<TState>.Default.Equals(oldState, State))
+            if (!EqualityComparer<TState>.Default.Equals(currentState, nextState))
             {
-                OnStateChange(State);
+                OnStateChange(nextState);
             }
         }
 
-        protected void OnStateChange(TState state)
+        private void InvokeDispatcher(ReduxAction action)
+        {
+            Dispatcher(action);
+        }
+
+        protected void OnStateChange(TState nextState)
         {
             if (StateChanged != null)
             {
-                StateChanged(this, state);
+                StateChanged(this, nextState);
             }
         }
 
