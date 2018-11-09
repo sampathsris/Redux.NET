@@ -112,21 +112,16 @@ namespace Redux
                 (IReducer<TState> reducer, Func<TState> getPreloadedState, StoreEnhancer<TState> enhancer) =>
                 {
                     IStore store = storeCreator(reducer, getPreloadedState, enhancer);
+                    IReduxDispatcherApi<TState> api = GetStore<TState>(store);
+                    Action<ReduxAction> originalDispatcher = api.Dispatcher;
 
                     // Create a dummy dispatcher. This will be later assigned with
                     // the dispatcher created by composing middleware.
-                    Action<ReduxAction> dispatch = (ReduxAction action) => {
+                    api.Dispatcher = (ReduxAction action) =>
+                    {
                         throw new System.InvalidOperationException(
                             "Dispatching while constructing the middleware is not " +
                             "allowed. Other middleware would not be applied.");
-                    };
-
-                    MiddlewareApi<TState> api = new MiddlewareApi<TState> {
-                        // Do not assign `dispatch` to `Disptach`, but implement a lambda
-                        // that calls `dispatch`. This is because `dispatch` will change
-                        // later.
-                        Dispatch = (action) => dispatch(action),
-                        GetState = () => store.GetState<TState>()
                     };
 
                     // Map each middleware to a function that accepts the middleware and
@@ -139,7 +134,7 @@ namespace Redux
                     MiddlewareImplementation<TState> composedMiddleware = MiddlewareCompose<TState>(chain);
 
                     // Get the wrapped dispatcher by calling the composed middleware.
-                    dispatch = composedMiddleware(store.Dispatch);
+                    api.Dispatcher = composedMiddleware(originalDispatcher);
 
                     return new MiddlewareEnhancedStore<TState>(api);
             };

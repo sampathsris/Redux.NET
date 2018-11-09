@@ -48,7 +48,7 @@
     <Compile Include="ExtensionOps.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IdentityReducer.cs" />
-    <Compile Include="MiddlewareApi.cs" />
+    <Compile Include="IReduxDispatcherApi.cs" />
     <Compile Include="IReducer.cs" />
     <Compile Include="IStore.cs" />
     <Compile Include="MiddlewareEnhancedStore.cs" />

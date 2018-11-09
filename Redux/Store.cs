@@ -7,7 +7,7 @@ namespace Redux
     /// Represents a Redux store that manages the state of type T.
     /// </summary>
     /// <typeparam name="TState">Type of the state.</typeparam>
-    internal class Store<TState> : IStore
+    internal class Store<TState> : IStore, IReduxDispatcherApi<TState>
     {
         /// <summary>
         /// The reducer that is used by the store.
@@ -17,18 +17,14 @@ namespace Redux
         /// <summary>
         /// The dispatcher that is invoked from the IStore.Dispatch implementation.
         /// </summary>
-        // both get and set needs to be protected, because if get was public,
-        // anyone can invoke the dispatcher.
-        protected Action<ReduxAction> Dispatcher { get; set; }
+        public Action<ReduxAction> Dispatcher { get; set; }
 
         private TState state;
 
         /// <summary>
         /// When invoked, returns the current state of the store.
         /// </summary>
-        // setter needs to be protected, because only subclasses should be able to
-        // replace it.
-        public Func<TState> GetState { get; protected set; }
+        public Func<TState> GetState { get; set; }
 
         public Store(IReducer<TState> reducer, Func<TState> getPreloadedState)
         {

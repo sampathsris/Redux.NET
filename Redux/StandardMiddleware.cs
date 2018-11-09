@@ -13,7 +13,7 @@ namespace Redux
         /// subsequent states to the standard output.</returns>
         public static Middleware<TState> CreateStdoutLoggerMiddleware<TState>()
         {
-            return (MiddlewareApi<TState> api) =>
+            return (IReduxDispatcherApi<TState> api) =>
                 (Action<ReduxAction> next) =>
                     (ReduxAction action) =>
                     {

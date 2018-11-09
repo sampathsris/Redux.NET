@@ -65,6 +65,6 @@ namespace Redux
     /// middleware, and returns another, possibly different dispatch function.
     /// </returns>
     public delegate MiddlewareImplementation<TState> Middleware<TState>(
-        MiddlewareApi<TState> api
+        IReduxDispatcherApi<TState> api
     );
 }
