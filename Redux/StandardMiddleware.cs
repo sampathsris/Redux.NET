@@ -13,17 +13,18 @@ namespace Redux
         /// subsequent states to the standard output.</returns>
         public static Middleware<T> CreateStdoutLoggerMiddleware<T>()
         {
-            return (MiddlewareApi<T> api) =>
-                (Action<ReduxAction> next) =>
-                    (ReduxAction action) =>
-                    {
-                        Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_ACTION_SEPARATOR);
-                        Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_DISPATCHING, action);
-                        next(action);
-                        Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_NEW_STATE);
-                        Console.WriteLine(api.GetState());
-                        Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_ACTION_SEPARATOR);
-                    };
+            return
+                (MiddlewareApi<T> api) =>
+                    (Action<ReduxAction> next) =>
+                        (ReduxAction action) =>
+                {
+                    Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_ACTION_SEPARATOR);
+                    Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_DISPATCHING, action);
+                    next(action);
+                    Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_NEW_STATE);
+                    Console.WriteLine(api.GetState());
+                    Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_ACTION_SEPARATOR);
+                };
         }
     }
 }
