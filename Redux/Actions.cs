@@ -67,16 +67,16 @@ namespace Redux
     /// must serialize actions (for example, to save a list of actions to a file), then
     /// you must use a serializable type for Payload.
     /// </summary>
-    /// <typeparam name="T">Type of payload</typeparam>
+    /// <typeparam name="TState">Type of payload</typeparam>
     [Serializable]
-    public class ReduxAction<T> : ReduxAction
+    public class ReduxAction<TState> : ReduxAction
     {
         /// <summary>
         /// Other data associated with the action, apart from action's Type.
         /// </summary>
-        public T Payload { get; private set; }
+        public TState Payload { get; private set; }
 
-        public ReduxAction(string type, T payload)
+        public ReduxAction(string type, TState payload)
             : base(type)
         {
             Payload = payload;

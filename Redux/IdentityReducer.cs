@@ -5,10 +5,10 @@ namespace Redux
     /// A reducer that has the identity function for the reducer
     /// function. In other words, it simply returns the previous state.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class IdentityReducer<T> : IReducer<T>
+    /// <typeparam name="TState">Type of the reduced state.</typeparam>
+    public class IdentityReducer<TState> : IReducer<TState>
     {
-        public T Reduce(T state, ReduxAction action)
+        public TState Reduce(TState state, ReduxAction action)
         {
             return state;
         }

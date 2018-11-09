@@ -6,17 +6,17 @@ namespace Redux
     /// <summary>
     /// Represents a Redux store that manages the state of type T.
     /// </summary>
-    /// <typeparam name="T">Type of the state.</typeparam>
-    internal class Store<T> : IStore
+    /// <typeparam name="TState">Type of the state.</typeparam>
+    internal class Store<TState> : IStore
     {
-        private IReducer<T> reducer;
+        private IReducer<TState> reducer;
 
         /// <summary>
         /// Gets the current state of the store.
         /// </summary>
-        public T State { get; private set; }
+        public TState State { get; private set; }
 
-        public Store(IReducer<T> reducer, Func<T> getPreloadedState)
+        public Store(IReducer<TState> reducer, Func<TState> getPreloadedState)
         {
             this.reducer = reducer;
 
@@ -39,17 +39,17 @@ namespace Redux
                 throw new ArgumentNullException("action", "Action must not be null when calling Dispatch.");
             }
 
-            T oldState = State;
+            TState oldState = State;
             State = reducer.Reduce(State, action);
 
             // Emit a StateChange event only if the state has changed.
-            if (!EqualityComparer<T>.Default.Equals(oldState, State))
+            if (!EqualityComparer<TState>.Default.Equals(oldState, State))
             {
                 OnStateChange(State);
             }
         }
 
-        protected void OnStateChange(T state)
+        protected void OnStateChange(TState state)
         {
             if (StateChanged != null)
             {
@@ -60,6 +60,6 @@ namespace Redux
         /// <summary>
         /// Invoked whenever the store changes state.
         /// </summary>
-        public event StateChangedEventHandler<T> StateChanged;
+        public event StateChangedEventHandler<TState> StateChanged;
     }
 }

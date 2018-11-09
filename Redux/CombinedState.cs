@@ -23,12 +23,15 @@ namespace Redux
                 // types. For value types, we need to initialize the state to said value
                 // type's default value.
                 Type t = mapping.Value
-                    .GetType()
-                    .GetInterfaces()
-                    .Where(t1 => t1.IsGenericType && t1.GetGenericTypeDefinition() == typeof(IReducer<>)).ElementAt(0)
-                    .GetGenericArguments()[0];
-                object defaultValue = t.IsValueType ? Activator.CreateInstance(t) : null;
-                componentStates.Add(mapping.Key, defaultValue);
+                    .GetType()                                          // Get the type of the value,
+                    .GetInterfaces()                                    // ... get the implemented interfaces,
+                    .Where(t1 =>                                        // ... filter by:
+                        t1.IsGenericType &&                             // generic interfaces, and
+                        t1.GetGenericTypeDefinition() == typeof(IReducer<>)) // ... check if the generic interface is IReducer
+                    .ElementAt(0)                                       // This should return only 1 element. Get it.
+                    .GetGenericArguments()[0];                          // IReducer has only 1 generic argument. Get it.
+
+                componentStates.Add(mapping.Key, t.IsValueType ? Activator.CreateInstance(t) : null);
             }
         }
         
