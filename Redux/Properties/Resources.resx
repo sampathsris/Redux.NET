@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ACTION_TYPE_NULL_ERROR" xml:space="preserve">
+    <value>Type must not be null when creating an Action.</value>
+  </data>
+  <data name="DISPATCH_ACTION_NULL_ERROR" xml:space="preserve">
+    <value>Action must not be null when calling Dispatch.</value>
+  </data>
   <data name="STDOUT_LOGGER_MW_ACTION_SEPARATOR" xml:space="preserve">
     <value>========================================</value>
   </data>
@@ -125,5 +131,8 @@
   </data>
   <data name="STDOUT_LOGGER_MW_NEW_STATE" xml:space="preserve">
     <value>New State:</value>
+  </data>
+  <data name="STORE_TYPEPARAM_INCORRECT_ERROR" xml:space="preserve">
+    <value>Store does not contain the queried type.</value>
   </data>
 </root>

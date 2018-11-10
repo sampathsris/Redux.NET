@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Redux
@@ -54,8 +55,12 @@ namespace Redux
 
         public override string ToString()
         {
-            return string.Join(Environment.NewLine,
-                componentStates.Select(kvp => (kvp.Key + ": " + kvp.Value)));
+            return string.Join(
+                Environment.NewLine,
+                componentStates.Select(kvp =>
+                    string.Format(CultureInfo.CurrentCulture, "{0}: {1}", kvp.Key, kvp.Value)
+                )
+            );
         }
     }
 }

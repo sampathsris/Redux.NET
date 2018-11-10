@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace Redux
 {
     public static class ExtensionOps
@@ -11,7 +12,7 @@ namespace Redux
         /// <returns>Current state of the store.</returns>
         public static TState GetState<TState>(this IStore store)
         {
-            return Ops.GetStore<TState>(store).GetState();
+            return store.GetStore<TState>().GetState();
         }
 
         /// <summary>
@@ -21,9 +22,9 @@ namespace Redux
         /// <param name="store">Store that is being subscribed.</param>
         /// <param name="handler">A function that will be invoked by the event after subscription.</param>
         /// <returns>A function that can be called in order to unsubscribe from then event.</returns>
-        public static System.Action Subscribe<TState>(this IStore store, StateChangedEventHandler<TState> handler)
+        public static Action Subscribe<TState>(this IStore store, StateChangedEventHandler<TState> handler)
         {
-            Store<TState> realStore = Ops.GetStore<TState>(store);
+            Store<TState> realStore = store.GetStore<TState>();
             realStore.StateChanged += handler;
             bool subscribed = true;
 
@@ -35,6 +36,18 @@ namespace Redux
                     subscribed = false;
                 }
             };
+        }
+
+        internal static Store<TState> GetStore<TState>(this IStore store)
+        {
+            Store<TState> realStore = store as Store<TState>;
+
+            if (realStore == null)
+            {
+                throw new InvalidOperationException(Properties.Resources.STORE_TYPEPARAM_INCORRECT_ERROR);
+            }
+
+            return realStore;
         }
     }
 }

@@ -61,6 +61,24 @@ namespace Redux.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type must not be null when creating an Action..
+        /// </summary>
+        internal static string ACTION_TYPE_NULL_ERROR {
+            get {
+                return ResourceManager.GetString("ACTION_TYPE_NULL_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action must not be null when calling Dispatch..
+        /// </summary>
+        internal static string DISPATCH_ACTION_NULL_ERROR {
+            get {
+                return ResourceManager.GetString("DISPATCH_ACTION_NULL_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ========================================.
         /// </summary>
         internal static string STDOUT_LOGGER_MW_ACTION_SEPARATOR {
@@ -84,6 +102,15 @@ namespace Redux.Properties {
         internal static string STDOUT_LOGGER_MW_NEW_STATE {
             get {
                 return ResourceManager.GetString("STDOUT_LOGGER_MW_NEW_STATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Store does not contain the queried type..
+        /// </summary>
+        internal static string STORE_TYPEPARAM_INCORRECT_ERROR {
+            get {
+                return ResourceManager.GetString("STORE_TYPEPARAM_INCORRECT_ERROR", resourceCulture);
             }
         }
     }

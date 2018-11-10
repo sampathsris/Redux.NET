@@ -55,7 +55,7 @@ namespace Redux
             // Action must not be null.
             if (action == null)
             {
-                throw new ArgumentNullException("action", "Action must not be null when calling Dispatch.");
+                throw new ArgumentNullException("action", Properties.Resources.DISPATCH_ACTION_NULL_ERROR);
             }
 
             TState currentState = GetState();
@@ -74,7 +74,7 @@ namespace Redux
             Dispatcher(action);
         }
 
-        protected void OnStateChange(TState nextState)
+        private void OnStateChange(TState nextState)
         {
             if (StateChanged != null)
             {

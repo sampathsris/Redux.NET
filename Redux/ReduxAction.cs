@@ -32,7 +32,7 @@ namespace Redux
         {
             if (type == null)
             {
-                throw new ArgumentNullException("type", "Type must not be null when creating an Action.");
+                throw new ArgumentNullException("type", Properties.Resources.ACTION_TYPE_NULL_ERROR);
             }
 
             ActionType = type;
