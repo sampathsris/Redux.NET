@@ -74,7 +74,7 @@ namespace Redux
             Dispatcher(action);
         }
 
-        protected void OnStateChange(TState nextState)
+        private void OnStateChange(TState nextState)
         {
             if (StateChanged != null)
             {

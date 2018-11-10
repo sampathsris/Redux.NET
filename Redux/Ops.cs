@@ -125,20 +125,17 @@ namespace Redux
                             "allowed. Other middleware would not be applied.");
                     };
 
-                    realStore.Dispatcher = (action) => dispatch(action);
-
                     // Map each middleware to a function that accepts the middleware and
                     // calls it with the MiddlewareAPI.
                     IEnumerable<MiddlewareImplementation<TState>> chain = middlewareList
                         .Select<Middleware<TState>, MiddlewareImplementation<TState>>(
-                            middleware => middleware(realStore.Dispatcher, getState));
+                            middleware => middleware((action) => dispatch(action), getState));
 
                     // Compose the functions in the above list into a single middleware.
                     MiddlewareImplementation<TState> composedMiddleware = ComposeMiddleware<TState>(chain);
 
                     // Get the wrapped dispatcher by calling the composed middleware.
                     dispatch = composedMiddleware(originalDispatch);
-
 
                     return new MiddlewareEnhancedStore<TState>(dispatch, getState);
             };
