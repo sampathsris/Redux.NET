@@ -62,7 +62,6 @@
     <Compile Include="StandardMiddleware.cs" />
     <Compile Include="Store.cs" />
     <Compile Include="ThunkAction.cs" />
-    <Compile Include="ThunkActionRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
