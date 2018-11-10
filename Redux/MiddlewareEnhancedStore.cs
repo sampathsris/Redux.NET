@@ -4,11 +4,11 @@ namespace Redux
 {
     internal class MiddlewareEnhancedStore<TState> : Store<TState>, IStore
     {
-        public MiddlewareEnhancedStore(IReduxDispatcherApi<TState> concreteDispatcher)
+        public MiddlewareEnhancedStore(Action<ReduxAction> dispatch, Func<TState> getState)
             : base(new IdentityReducer<TState>(), null)
         {
-            Dispatcher = concreteDispatcher.Dispatcher;
-            GetState = concreteDispatcher.GetState;
+            Dispatcher = dispatch;
+            GetState = getState;
         }
     }
 }

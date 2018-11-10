@@ -7,7 +7,7 @@ namespace Redux
     /// Represents a Redux store that manages the state of type T.
     /// </summary>
     /// <typeparam name="TState">Type of the state.</typeparam>
-    internal class Store<TState> : IStore, IReduxDispatcherApi<TState>
+    internal class Store<TState> : IStore
     {
         /// <summary>
         /// The reducer that is used by the store.

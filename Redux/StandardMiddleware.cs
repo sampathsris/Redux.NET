@@ -14,7 +14,7 @@ namespace Redux
         public static Middleware<TState> CreateStdoutLoggerMiddleware<TState>()
         {
             return
-                (IReduxDispatcherApi<TState> api) =>
+                (Action<ReduxAction> dispatch, Func<TState> getState) =>
                     (Action<ReduxAction> next) =>
                         (ReduxAction action) =>
                 {
@@ -22,7 +22,7 @@ namespace Redux
                     Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_DISPATCHING, action);
                     next(action);
                     Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_NEW_STATE);
-                    Console.WriteLine(api.GetState());
+                    Console.WriteLine(getState());
                     Console.WriteLine(Properties.Resources.STDOUT_LOGGER_MW_ACTION_SEPARATOR);
                 };
         }
@@ -39,7 +39,7 @@ namespace Redux
         public static Middleware<TState> CreateThunkMiddleware<TState, TExtra>(TExtra extraArgument)
         {
             return
-                (IReduxDispatcherApi<TState> api) =>
+                (Action<ReduxAction> dispatch, Func<TState> getState) =>
                     (Action<ReduxAction> next) =>
                         (ReduxAction action) =>
                 {
@@ -47,7 +47,7 @@ namespace Redux
 
                     if (thunkAction != null)
                     {
-                        thunkAction.Thunk(api, extraArgument);
+                        thunkAction.Thunk(dispatch, getState, extraArgument);
                     }
 
                     next(action);

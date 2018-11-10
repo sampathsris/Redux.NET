@@ -33,14 +33,14 @@ namespace MultiMiddleware
                 Console.WriteLine("[{0}] counter: {1}", testName, state);
             });
 
-            ReduxThunk<int> incrementIfOdd = (IReduxDispatcherApi<int> api) =>
+            ReduxThunk<int> incrementIfOdd = (dispatch, getState) =>
             {
-                var count = api.GetState();
+                var count = getState();
                 Console.WriteLine("[{0}] incrementIfOdd called. counter: {1}", testName, count);
 
                 if (count % 2 != 0)
                 {
-                    api.Dispatcher(Counter.Increment());
+                    dispatch(Counter.Increment());
                 }
             };
             var incrementIfOddAction = new ThunkAction<int>("INCREMENT_IF_ODD", incrementIfOdd);

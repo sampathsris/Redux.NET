@@ -47,6 +47,6 @@ namespace Redux
     public class ThunkAction<TState> : ThunkAction<TState, object>
     {
         public ThunkAction(string thunkName, ReduxThunk<TState> thunk)
-            : base(thunkName, (api, obj) => thunk(api)) { }
+            : base(thunkName, (dispatch, getState, obj) => thunk(dispatch, getState)) { }
     }
 }

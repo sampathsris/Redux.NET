@@ -60,12 +60,14 @@ namespace Redux
     /// </summary>
     /// <typeparam name="TState">Type of the state of the store on which the
     /// middleware will operate.</typeparam>
-    /// <param name="api">MiddlewareAPI that is passed to the middleware.</param>
+    /// <param name="dispatch">A delegate that takes the form of a dispatcher.</param>
+    /// <param name="getState">When invoked, returns the current state of the store.</param>
     /// <returns>A function which accepts the dispatch function of the next
     /// middleware, and returns another, possibly different dispatch function.
     /// </returns>
     public delegate MiddlewareImplementation<TState> Middleware<TState>(
-        IReduxDispatcherApi<TState> api
+        Action<ReduxAction> dispatch,
+        Func<TState> getState
     );
 
     /// <summary>
@@ -73,9 +75,11 @@ namespace Redux
     /// </summary>
     /// <typeparam name="TState">Type of the sate of the store that this thunk
     /// will operate on.</typeparam>
-    /// <param name="api">A reference to the redux dispatcher.</param>
+    /// <param name="dispatch">A delegate that takes the form of a dispatcher.</param>
+    /// <param name="getState">When invoked, returns the current state of the store.</param>
     public delegate void ReduxThunk<TState>(
-        IReduxDispatcherApi<TState> api
+        Action<ReduxAction> dispatch,
+        Func<TState> getState
     );
 
     /// <summary>
@@ -84,11 +88,13 @@ namespace Redux
     /// <typeparam name="TState">Type of the sate of the store that this thunk
     /// will operate on.</typeparam>
     /// <typeparam name="TExtra">Type of the extra argument.</typeparam>
-    /// <param name="api">A reference to the redux dispatcher.</param>
+    /// <param name="dispatch">A delegate that takes the form of a dispatcher.</param>
+    /// <param name="getState">When invoked, returns the current state of the store.</param>
     /// <param name="extraArgument">Extra argument that can be used from within
     /// the thunk.</param>
     public delegate void ReduxThunk<TState, TExtra>(
-        IReduxDispatcherApi<TState> api,
+        Action<ReduxAction> dispatch,
+        Func<TState> getState,
         TExtra extraArgument
     );
 }

@@ -112,31 +112,35 @@ namespace Redux
                 (IReducer<TState> reducer, Func<TState> getPreloadedState, StoreEnhancer<TState> enhancer) =>
                 {
                     IStore store = storeCreator(reducer, getPreloadedState, enhancer);
-                    IReduxDispatcherApi<TState> api = GetStore<TState>(store);
-                    Action<ReduxAction> originalDispatcher = api.Dispatcher;
+                    var realStore = GetStore<TState>(store);
+                    Action<ReduxAction> originalDispatch = realStore.Dispatcher;
+                    Func<TState> getState = realStore.GetState;
 
                     // Create a dummy dispatcher. This will be later assigned with
                     // the dispatcher created by composing middleware.
-                    api.Dispatcher = (ReduxAction action) =>
+                    Action<ReduxAction> dispatch = (ReduxAction action) =>
                     {
                         throw new System.InvalidOperationException(
                             "Dispatching while constructing the middleware is not " +
                             "allowed. Other middleware would not be applied.");
                     };
 
+                    realStore.Dispatcher = (action) => dispatch(action);
+
                     // Map each middleware to a function that accepts the middleware and
                     // calls it with the MiddlewareAPI.
                     IEnumerable<MiddlewareImplementation<TState>> chain = middlewareList
                         .Select<Middleware<TState>, MiddlewareImplementation<TState>>(
-                            middleware => middleware(api));
+                            middleware => middleware(realStore.Dispatcher, getState));
 
                     // Compose the functions in the above list into a single middleware.
                     MiddlewareImplementation<TState> composedMiddleware = ComposeMiddleware<TState>(chain);
 
                     // Get the wrapped dispatcher by calling the composed middleware.
-                    api.Dispatcher = composedMiddleware(originalDispatcher);
+                    dispatch = composedMiddleware(originalDispatch);
 
-                    return new MiddlewareEnhancedStore<TState>(api);
+
+                    return new MiddlewareEnhancedStore<TState>(dispatch, getState);
             };
         }
 

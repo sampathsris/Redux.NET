@@ -20,14 +20,14 @@ namespace ThunkedCounter
             counterStore = Ops.CreateStore<int>(counterReducer, () => 101, enhancer);
             counterStore.Subscribe<int>(CountChanged);
 
-            ReduxThunk<int> incrementIfOdd = (IReduxDispatcherApi<int> api) =>
+            ReduxThunk<int> incrementIfOdd = (dispatch, getState) =>
                 {
-                    var count = api.GetState();
+                    var count = getState();
                     Console.WriteLine("incrementIfOdd called. counter: {0}", count);
 
                     if (count % 2 != 0)
                     {
-                        api.Dispatcher(Counter.Increment());
+                        dispatch(Counter.Increment());
                     }
                 };
             var incrementIfOddAction = new ThunkAction<int>("INCREMENT_IF_ODD", incrementIfOdd);
