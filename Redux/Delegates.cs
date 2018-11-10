@@ -67,4 +67,17 @@ namespace Redux
     public delegate MiddlewareImplementation<TState> Middleware<TState>(
         IReduxDispatcherApi<TState> api
     );
+
+    /// <summary>
+    /// Represents a Redux thunk.
+    /// </summary>
+    /// <typeparam name="TState">Type of the sate of the store that this thunk
+    /// will operate on.</typeparam>
+    /// <param name="api">A reference to the redux dispatcher.</param>
+    /// <param name="extraArgument">Extra argument that can be used from within
+    /// the thunk.</param>
+    public delegate void ReduxThunk<TState>(
+        IReduxDispatcherApi<TState> api,
+        object extraArgument
+    );
 }

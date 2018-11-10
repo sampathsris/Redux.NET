@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{730D8A0B-465B-4D66-922B-BFBAF7035F4E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{68A8A716-CBB6-434C-A5D6-A641BD700668}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Redux</RootNamespace>
-    <AssemblyName>Redux</AssemblyName>
+    <RootNamespace>StoreEnhancers</RootNamespace>
+    <AssemblyName>StoreEnhancers</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,10 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,34 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions.cs" />
-    <Compile Include="CombinedReducer.cs" />
-    <Compile Include="Delegates.cs" />
-    <Compile Include="CombinedState.cs" />
-    <Compile Include="ExtensionOps.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="IdentityReducer.cs" />
-    <Compile Include="IReduxDispatcherApi.cs" />
-    <Compile Include="IReducer.cs" />
-    <Compile Include="IStore.cs" />
-    <Compile Include="MiddlewareEnhancedStore.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ops.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="StandardMiddleware.cs" />
-    <Compile Include="Store.cs" />
-    <Compile Include="ThunkAction.cs" />
-    <Compile Include="ThunkActionRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Redux\Redux.csproj">
+      <Project>{730d8a0b-465b-4d66-922b-bfbaf7035f4e}</Project>
+      <Name>Redux</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

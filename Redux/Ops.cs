@@ -131,7 +131,7 @@ namespace Redux
                             middleware => middleware(api));
 
                     // Compose the functions in the above list into a single middleware.
-                    MiddlewareImplementation<TState> composedMiddleware = MiddlewareCompose<TState>(chain);
+                    MiddlewareImplementation<TState> composedMiddleware = ComposeMiddleware<TState>(chain);
 
                     // Get the wrapped dispatcher by calling the composed middleware.
                     api.Dispatcher = composedMiddleware(originalDispatcher);
@@ -140,16 +140,35 @@ namespace Redux
             };
         }
 
-        internal static MiddlewareImplementation<TState> MiddlewareCompose<TState>(
-            IEnumerable<MiddlewareImplementation<TState>> chain)
+        internal static MiddlewareImplementation<TState> ComposeMiddleware<TState>(
+            IEnumerable<MiddlewareImplementation<TState>> middlewareChain)
         {
             // If the list of functions is a, b, c, ..., z then this will compose the functions
             // such that the returned function is (arg) => a(b(c(...(z(arg))...))).
             // Composition will happen right-to-left.
-            return (dispatch) => chain
+            return (dispatch) => middlewareChain
                 .Reverse()
                 .Aggregate<MiddlewareImplementation<TState>, Action<ReduxAction>>(
                     dispatch,
+                    (acc, func) => func(acc)
+                );
+        }
+
+        /// <summary>
+        /// Composes multiple store enhancers into a single enhancer.
+        /// </summary>
+        /// <typeparam name="TState">Type of the state.</typeparam>
+        /// <param name="enhancerChain">A list of enhancers, such as the function
+        /// returned from ApplyMiddleware.</param>
+        /// <returns>Composed enhancer.</returns>
+        public static StoreEnhancer<TState> ComposeEnhancers<TState>(
+            params StoreEnhancer<TState>[] enhancerChain)
+        {
+            // Similar to ComposeMiddleware.
+            return (storeCreator) => enhancerChain
+                .Reverse()
+                .Aggregate<StoreEnhancer<TState>, StoreCreator<TState>>(
+                    storeCreator,
                     (acc, func) => func(acc)
                 );
         }
