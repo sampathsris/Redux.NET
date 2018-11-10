@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreEnhancers", "Examples\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThunkedCounter", "Examples\Misc\ThunkedCounter\ThunkedCounter.csproj", "{32A8DDBC-AE0D-4C1C-9483-74919843E81E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMiddleware", "Examples\Misc\MultiMiddleware\MultiMiddleware.csproj", "{71DC9466-885E-4EDF-ACE1-5395E609FDE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{32A8DDBC-AE0D-4C1C-9483-74919843E81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32A8DDBC-AE0D-4C1C-9483-74919843E81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32A8DDBC-AE0D-4C1C-9483-74919843E81E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71DC9466-885E-4EDF-ACE1-5395E609FDE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71DC9466-885E-4EDF-ACE1-5395E609FDE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71DC9466-885E-4EDF-ACE1-5395E609FDE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71DC9466-885E-4EDF-ACE1-5395E609FDE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,5 +109,6 @@ Global
 		{B2011FB1-4250-422F-B8F0-DD13B6ED896B} = {4F507233-9A87-4151-BCCE-77A24B0C1114}
 		{68A8A716-CBB6-434C-A5D6-A641BD700668} = {9CBB70FF-6C33-4E33-9A4E-A3CAAF8A5A05}
 		{32A8DDBC-AE0D-4C1C-9483-74919843E81E} = {9CBB70FF-6C33-4E33-9A4E-A3CAAF8A5A05}
+		{71DC9466-885E-4EDF-ACE1-5395E609FDE7} = {9CBB70FF-6C33-4E33-9A4E-A3CAAF8A5A05}
 	EndGlobalSection
 EndGlobal
