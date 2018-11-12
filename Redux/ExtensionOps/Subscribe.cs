@@ -2,19 +2,8 @@
 
 namespace Redux
 {
-    public static class ExtensionOps
+    public static partial class ExtensionOps
     {
-        /// <summary>
-        /// Gets the state of a store.
-        /// </summary>
-        /// <typeparam name="TState">Expected type of the store state.</typeparam>
-        /// <param name="store">Store that is being queried.</param>
-        /// <returns>Current state of the store.</returns>
-        public static TState GetState<TState>(this IStore store)
-        {
-            return store.GetStore<TState>().GetState();
-        }
-
         /// <summary>
         /// Subscribes an eventhandler to a store's StateChanged event.
         /// </summary>
@@ -36,18 +25,6 @@ namespace Redux
                     subscribed = false;
                 }
             };
-        }
-
-        internal static Store<TState> GetStore<TState>(this IStore store)
-        {
-            Store<TState> realStore = store as Store<TState>;
-
-            if (realStore == null)
-            {
-                throw new InvalidOperationException(Properties.Resources.STORE_TYPEPARAM_INCORRECT_ERROR);
-            }
-
-            return realStore;
         }
     }
 }

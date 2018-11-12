@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="Delegates\Reducer.cs" />
     <Compile Include="Delegates\StoreEnhancer.cs" />
+    <Compile Include="ExtensionOps\GetState.cs" />
+    <Compile Include="ExtensionOps\GetStore.cs" />
+    <Compile Include="ExtensionOps\Subscribe.cs" />
     <Compile Include="Ops\IdentityReducer.cs" />
     <Compile Include="ReduxAction.cs" />
     <Compile Include="Delegates\Middleware.cs" />
@@ -50,7 +53,6 @@
     <Compile Include="Delegates\ReduxThunk.cs" />
     <Compile Include="Delegates\StateChangedEventHandler.cs" />
     <Compile Include="Delegates\StoreCreator.cs" />
-    <Compile Include="ExtensionOps.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IStore.cs" />
     <Compile Include="Ops\ApplyMiddleware.cs" />
@@ -63,9 +65,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StandardMiddleware.cs" />
+    <Compile Include="StandardMiddleware\CreateStdoutLoggerMiddleware.cs" />
+    <Compile Include="StandardMiddleware\CreateThunkMiddleware.cs" />
     <Compile Include="Store.cs" />
-    <Compile Include="ThunkAction.cs" />
+    <Compile Include="StandardMiddleware\ThunkAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
