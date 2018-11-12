@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using CounterExampleCore;
 using ToDoListExampleCore;
@@ -6,6 +7,8 @@ using Redux;
 
 namespace CombinedApp
 {
+    using CombinedState = IDictionary<string, dynamic>;
+
     class Program
     {
         private static IStore combinedStore = null;
@@ -50,7 +53,7 @@ namespace CombinedApp
 
         private static void CombinedStateChanged(IStore store, CombinedState state)
         {
-            Console.WriteLine(state);
+            Console.WriteLine(state.Select(kvp => kvp.Key + ": " + kvp.Value.ToString()));
         }
 
         private static void SendAction(ReduxAction action)

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using System.Dynamic;
 
 namespace Redux
 {
@@ -15,7 +16,8 @@ namespace Redux
         /// <code>Redux.Reducer&lt;T&gt;</code>. Only reason for this parameter to have <code>dynamic</code>
         /// type is to facilitate reducers with both value and reference types.</param>
         /// <returns>A combined reducer.</returns>
-        public static Reducer<CombinedState> CombineReducers(IDictionary<string, object> reducerMapping)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public static Reducer<IDictionary<string, dynamic>> CombineReducers(IDictionary<string, object> reducerMapping)
         {
             if (reducerMapping == null) throw new ArgumentNullException("reducerMapping");
 
@@ -38,10 +40,12 @@ namespace Redux
                 invokerMapping.Add(reducerkvp.Key, componentReducerInfo);
             }
 
+            var initializeState = CreateCombinedStateInitializer(reducerMapping);
+
             // Return a reducer which, when called, invokes the individual reducers in turn.
             return (state, action) =>
             {
-                var nextState = new CombinedState(reducerMapping);
+                var nextState = initializeState(state);
 
                 if (state == null)
                 {
@@ -64,6 +68,24 @@ namespace Redux
 
                 return (stateChanged ? nextState : state);
             };
+        }
+
+        private static Func<IDictionary<string, dynamic>, IDictionary<string, dynamic>> CreateCombinedStateInitializer(IDictionary<string, object> reducerMapping)
+        {
+            var states = new Dictionary<string, dynamic>();
+
+            foreach (var reducerkvp in reducerMapping)
+            {
+                // The type of the component states could either be reference or value
+                // types. For value types, we need to initialize the state to said value
+                // type's default value.
+                //
+                // Reducer has only 1 generic argument.
+                Type t = reducerkvp.Value.GetType().GetGenericArguments()[0];
+                states.Add(reducerkvp.Key, t.IsValueType ? Activator.CreateInstance(t) : null);
+            }
+
+            return (prevState) => new Dictionary<string, dynamic>(prevState == null ? states : prevState);
         }
     }
 }
