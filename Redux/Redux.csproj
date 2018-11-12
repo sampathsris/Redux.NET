@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delegates\StoreEnhancer.cs" />
     <Compile Include="ReduxAction.cs" />
     <Compile Include="CombinedReducer.cs" />
     <Compile Include="CombinedState.cs" />
