@@ -2,7 +2,7 @@
 
 namespace CounterExampleCore
 {
-    public class Counter: IReducer<int>
+    public static class Counter
     {
         const string INCREMENT = "INCREMENT";
         const string DECREMENT = "DECREMENT";
@@ -37,7 +37,7 @@ namespace CounterExampleCore
             }
         }
 
-        public int Reduce(int state, ReduxAction action)
+        public static int Reduce(int state, ReduxAction action)
         {
             switch (action.ActionType)
             {

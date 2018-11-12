@@ -79,6 +79,15 @@ namespace Redux.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Reducer for key &apos;{0}&apos;..
+        /// </summary>
+        internal static string INVALID_REDUCER_ERROR {
+            get {
+                return ResourceManager.GetString("INVALID_REDUCER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ========================================.
         /// </summary>
         internal static string STDOUT_LOGGER_MW_ACTION_SEPARATOR {

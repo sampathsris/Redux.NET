@@ -23,15 +23,9 @@ namespace Redux
                 // The type of the component states could either be reference or value
                 // types. For value types, we need to initialize the state to said value
                 // type's default value.
-                Type t = mapping.Value
-                    .GetType()                                          // Get the type of the value,
-                    .GetInterfaces()                                    // ... get the implemented interfaces,
-                    .Where(t1 =>                                        // ... filter by:
-                        t1.IsGenericType &&                             // generic interfaces, and
-                        t1.GetGenericTypeDefinition() == typeof(IReducer<>)) // ... check if the generic interface is IReducer
-                    .ElementAt(0)                                       // This should return only 1 element. Get it.
-                    .GetGenericArguments()[0];                          // IReducer has only 1 generic argument. Get it.
-
+                //
+                // Reducer has only 1 generic argument.
+                Type t = mapping.Value.GetType().GetGenericArguments()[0];
                 componentStates.Add(mapping.Key, t.IsValueType ? Activator.CreateInstance(t) : null);
             }
         }

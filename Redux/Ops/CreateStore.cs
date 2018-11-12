@@ -11,7 +11,7 @@ namespace Redux
         /// <param name="reducer">Reducer function.</param>
         /// <returns>The created Redux store.</returns>
         public static IStore CreateStore<TState>(
-            IReducer<TState> reducer)
+            Reducer<TState> reducer)
         {
             return CreateStore<TState>(reducer, null, null);
         }
@@ -25,7 +25,7 @@ namespace Redux
         /// the initial state to pre-load the store.</param>
         /// <returns>The created Redux store.</returns>
         public static IStore CreateStore<TState>(
-            IReducer<TState> reducer,
+            Reducer<TState> reducer,
             Func<TState> getPreloadedState)
         {
             return CreateStore<TState>(reducer, getPreloadedState, null);
@@ -42,7 +42,7 @@ namespace Redux
         /// <param name="enhancer">Enhancer function that enhances the store.</param>
         /// <returns>The created Redux store.</returns>
         public static IStore CreateStore<TState>(
-            IReducer<TState> reducer,
+            Reducer<TState> reducer,
             Func<TState> getPreloadedState,
             StoreEnhancer<TState> enhancer)
         {

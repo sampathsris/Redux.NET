@@ -26,8 +26,7 @@ namespace MultiMiddleware
         private static void CreateTestWithEnhancer(string testName, StoreEnhancer<int> enhancer)
         {
             IStore counterStore = null;
-            var counterReducer = new Counter();
-            counterStore = Ops.CreateStore<int>(counterReducer, () => 101, enhancer);
+            counterStore = Ops.CreateStore<int>(Counter.Reduce, () => 101, enhancer);
             counterStore.Subscribe<int>((IStore store, int state) =>
             {
                 Console.WriteLine("[{0}] counter: {1}", testName, state);

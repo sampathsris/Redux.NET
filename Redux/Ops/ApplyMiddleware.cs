@@ -16,7 +16,7 @@ namespace Redux
         public static StoreEnhancer<TState> ApplyMiddleware<TState>(params Middleware<TState>[] middlewareList)
         {
             return (StoreCreator<TState> storeCreator) =>
-                (IReducer<TState> reducer, Func<TState> getPreloadedState, StoreEnhancer<TState> enhancer) =>
+                (Reducer<TState> reducer, Func<TState> getPreloadedState, StoreEnhancer<TState> enhancer) =>
                 {
                     IStore store = storeCreator(reducer, getPreloadedState, enhancer);
                     var realStore = store.GetStore<TState>();

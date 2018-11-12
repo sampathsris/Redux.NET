@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ToDoListExampleCore
 {
-    public class ToDoList : IReducer<IDictionary<string, bool>>
+    public static class ToDoList
     {
         const string ADD_TODO = "ADD_TODO";
         const string TOGGLE_TODO = "TOGGLE_TODO";
@@ -18,7 +18,7 @@ namespace ToDoListExampleCore
             return new ReduxAction<string>(TOGGLE_TODO, todo);
         }
 
-        public IDictionary<string, bool> Reduce(IDictionary<string, bool> state, ReduxAction action)
+        public static IDictionary<string, bool> Reduce(IDictionary<string, bool> state, ReduxAction action)
         {
             if (state == null)
             {

@@ -12,7 +12,7 @@ namespace Redux
         /// <summary>
         /// The reducer that is used by the store.
         /// </summary>
-        public IReducer<TState> Reducer { get; private set; }
+        public Reducer<TState> Reducer { get; private set; }
 
         /// <summary>
         /// The dispatcher that is invoked from the IStore.Dispatch implementation.
@@ -26,14 +26,14 @@ namespace Redux
         /// </summary>
         public Func<TState> GetState { get; set; }
 
-        public Store(IReducer<TState> reducer, Func<TState> getPreloadedState)
+        public Store(Reducer<TState> reducer, Func<TState> getPreloadedState)
         {
             Reducer = reducer;
 
             // initialize dispatcher.
             Dispatcher = (action) =>
             {
-                state = reducer.Reduce(state, action);
+                state = reducer(state, action);
             };
 
             // initialize the state getter.

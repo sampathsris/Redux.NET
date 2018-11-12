@@ -12,7 +12,7 @@ namespace Redux
     /// <param name="enhancer">A store enhancer. See StoreEnhancer.</param>
     /// <returns>A redux store.</returns>
     public delegate IStore StoreCreator<TState>(
-        IReducer<TState> reducer,
+        Reducer<TState> reducer,
         // Why is this parameter `Func<TState> getPreloadedState` instead of
         // `TState preloadedState`? The answer is: it should be an optional
         // parameter, but if T is a value type, we cannot do that.

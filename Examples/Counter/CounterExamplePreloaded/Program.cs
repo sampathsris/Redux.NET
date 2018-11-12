@@ -12,9 +12,8 @@ namespace CounterExamplePreloaded
         {
             var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware<int>();
             var enhancer = Ops.ApplyMiddleware<int>(loggerMiddleware);
-            var counterReducer = new Counter();
             // Create the store with preloaded value of 100.
-            counterStore = Ops.CreateStore<int>(counterReducer, () => 100, enhancer);
+            counterStore = Ops.CreateStore<int>(Counter.Reduce, () => 100, enhancer);
 
             Console.WriteLine("Initial state: " + counterStore.GetState<int>()); // 0
 

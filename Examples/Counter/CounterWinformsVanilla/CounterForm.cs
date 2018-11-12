@@ -24,7 +24,7 @@ namespace CounterWinformsVanilla
 
         private void SetupReduxStore()
         {
-            store = Ops.CreateStore<int>(new Counter());
+            store = Ops.CreateStore<int>(Counter.Reduce);
             store.Subscribe<int>(StoreStateChanged);
             SetLabel(store.GetState<int>());
         }

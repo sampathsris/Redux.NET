@@ -10,7 +10,7 @@ namespace CounterExample
 
         static void Main(string[] args)
         {
-            counterStore = Ops.CreateStore<int>(new Counter());
+            counterStore = Ops.CreateStore<int>(Counter.Reduce);
             counterStore.Subscribe<int>(CounterStoreStateChanged);
 
             Console.WriteLine("Initial state: " + counterStore.GetState<int>()); // 0

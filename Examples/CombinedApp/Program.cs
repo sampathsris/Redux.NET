@@ -12,13 +12,10 @@ namespace CombinedApp
 
         static void Main(string[] args)
         {
-            var counterReducer = new Counter();
-            var toDoListReducer = new ToDoList();
-
             var combinedReducer = Ops.CombineReducers(new Dictionary<string, object>()
             {
-                { "counter", counterReducer },
-                { "todos",   toDoListReducer }
+                { "counter", (Reducer<int>)Counter.Reduce },
+                { "todos",   (Reducer<IDictionary<string, bool>>)ToDoList.Reduce }
             });
 
             combinedStore = Ops.CreateStore<CombinedState>(combinedReducer);

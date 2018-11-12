@@ -11,7 +11,7 @@ namespace StoreEnhancers
             var bar = CreateDummyStoreEnhancer<int>("bar");
             var composedEnhancer = Ops.ComposeEnhancers<int>(foo, bar);
 
-            var store = Ops.CreateStore<int>(new IdentityReducer<int>(), null, composedEnhancer);
+            var store = Ops.CreateStore<int>(Ops.GetIdentityReducer<int>(), null, composedEnhancer);
             Console.ReadKey();
         }
 

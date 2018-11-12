@@ -17,7 +17,7 @@ namespace ToDoListExample
             string b = "Play with Redux";
             string c = "Implement Redux in .NET";
 
-            todoListStore = Ops.CreateStore<ToDoObj>(new ToDoList());
+            todoListStore = Ops.CreateStore<ToDoObj>(ToDoList.Reduce);
             todoListStore.Subscribe<ToDoObj>(ToDoListStateChanged);
 
             SendAction(ToDoList.AddTodo(a));

@@ -123,6 +123,9 @@
   <data name="DISPATCH_ACTION_NULL_ERROR" xml:space="preserve">
     <value>Action must not be null when calling Dispatch.</value>
   </data>
+  <data name="INVALID_REDUCER_ERROR" xml:space="preserve">
+    <value>Invalid Reducer for key '{0}'.</value>
+  </data>
   <data name="STDOUT_LOGGER_MW_ACTION_SEPARATOR" xml:space="preserve">
     <value>========================================</value>
   </data>

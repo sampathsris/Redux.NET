@@ -12,8 +12,7 @@ namespace ThunkedCounter
         {
             var thunkMiddleware = StandardMiddleware.CreateThunkMiddleware<int>();
             var enhancer = Ops.ApplyMiddleware<int>(thunkMiddleware);
-            var counterReducer = new Counter();
-            counterStore = Ops.CreateStore<int>(counterReducer, () => 101, enhancer);
+            counterStore = Ops.CreateStore<int>(Counter.Reduce, () => 101, enhancer);
             counterStore.Subscribe<int>(CountChanged);
 
             ReduxThunk<int> incrementIfOdd = (dispatch, getState) =>
