@@ -43,8 +43,9 @@ namespace Redux
 
                     // Get the wrapped dispatcher by calling the composed middleware.
                     dispatch = composedMiddleware(originalDispatch);
+                    realStore.Dispatcher = dispatch;
 
-                    return new MiddlewareEnhancedStore<TState>(dispatch, getState);
+                    return store;
                 };
         }
 

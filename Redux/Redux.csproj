@@ -55,7 +55,6 @@
     <Compile Include="IdentityReducer.cs" />
     <Compile Include="IReducer.cs" />
     <Compile Include="IStore.cs" />
-    <Compile Include="MiddlewareEnhancedStore.cs" />
     <Compile Include="Ops\ApplyMiddleware.cs" />
     <Compile Include="Ops\CombineReducers.cs" />
     <Compile Include="Ops\ComposeEnhancers.cs" />
