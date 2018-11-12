@@ -47,6 +47,7 @@
     <Compile Include="ExtensionOps\GetStore.cs" />
     <Compile Include="ExtensionOps\Subscribe.cs" />
     <Compile Include="Ops\GetIdentityReducer.cs" />
+    <Compile Include="ExtensionOps\ReplaceReducer.cs" />
     <Compile Include="ReduxAction.cs" />
     <Compile Include="Delegates\Middleware.cs" />
     <Compile Include="Delegates\MiddlewareImplementation.cs" />

@@ -14,6 +14,8 @@ namespace Redux
         /// </summary>
         internal static readonly ReduxAction __INIT__ = new ReduxAction("__INIT__");
 
+        internal static readonly ReduxAction __REPLACE_REDUCER__ = new ReduxAction("__REPLACE_REDUCER__");
+
         /// <summary>
         /// Every Redux action has a mandatory Type property.
         /// </summary>
