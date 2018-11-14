@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.Serialization;
 
 namespace Redux
@@ -9,12 +10,22 @@ namespace Redux
     [Serializable]
     public class ReduxAction
     {
+        private static readonly string RandomID = Guid.NewGuid().ToString();
+
+        // {0} and {1} to be replaced by action and guid.
+        private const string ActionFormat = "@@@{0}/{1}";
+
         /// <summary>
         /// Action used to initilize every redux store.
         /// </summary>
-        internal static readonly ReduxAction __INIT__ = new ReduxAction("__INIT__");
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ReduxAction InitAction = new ReduxAction(string.Format(CultureInfo.InvariantCulture, ActionFormat, "INIT", RandomID));
 
-        internal static readonly ReduxAction __REPLACE_REDUCER__ = new ReduxAction("__REPLACE_REDUCER__");
+        /// <summary>
+        /// Action dispatched whenever a reducer is replaced.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ReduxAction ReplaceReducerAction = new ReduxAction(string.Format(CultureInfo.InvariantCulture, ActionFormat, "REPLACE_REDUCER", RandomID));
 
         /// <summary>
         /// Every Redux action has a mandatory Type property.

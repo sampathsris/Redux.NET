@@ -64,7 +64,7 @@ namespace Redux
             // https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2214-do-not-call-overridable-methods-in-constructors?view=vs-2017
             // It would also mean that any middleware would not receive INIT action, which could
             // potentially be dangerous.
-            store.Dispatch(ReduxAction.__INIT__);
+            store.Dispatch(ReduxAction.InitAction);
 
             return store;
         }

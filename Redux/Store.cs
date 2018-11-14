@@ -72,7 +72,7 @@ namespace Redux
         internal void ReplaceReducer(Reducer<TState> nextReducer)
         {
             Reducer = nextReducer;
-            InvokeDispatcher(ReduxAction.__REPLACE_REDUCER__);
+            InvokeDispatcher(ReduxAction.ReplaceReducerAction);
         }
 
         private void InvokeDispatcher(ReduxAction action)
