@@ -46,8 +46,11 @@
     <Compile Include="ExtensionOps\GetState.cs" />
     <Compile Include="ExtensionOps\GetStore.cs" />
     <Compile Include="ExtensionOps\Subscribe.cs" />
+    <Compile Include="IState.cs" />
     <Compile Include="Ops\GetIdentityReducer.cs" />
     <Compile Include="ExtensionOps\ReplaceReducer.cs" />
+    <Compile Include="Primitives\CreatePrimitiveStore.cs" />
+    <Compile Include="Primitives\PrimitiveStateChangedEventHandler.cs" />
     <Compile Include="ReduxAction.cs" />
     <Compile Include="Delegates\Middleware.cs" />
     <Compile Include="Delegates\MiddlewareImplementation.cs" />

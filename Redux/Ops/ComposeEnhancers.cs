@@ -11,13 +11,13 @@ namespace Redux
         /// <param name="enhancerChain">A list of enhancers, such as the function
         /// returned from ApplyMiddleware.</param>
         /// <returns>Composed enhancer.</returns>
-        public static StoreEnhancer<TState> ComposeEnhancers<TState>(
-            params StoreEnhancer<TState>[] enhancerChain)
+        public static StoreEnhancer ComposeEnhancers<TState>(
+            params StoreEnhancer[] enhancerChain)
         {
             // Similar to ComposeMiddleware.
             return (storeCreator) => enhancerChain
                 .Reverse()
-                .Aggregate<StoreEnhancer<TState>, StoreCreator<TState>>(
+                .Aggregate<StoreEnhancer, StoreCreator>(
                     storeCreator,
                     (acc, func) => func(acc)
                 );

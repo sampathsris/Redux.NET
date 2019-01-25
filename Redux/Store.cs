@@ -4,29 +4,28 @@ using System.Collections.Generic;
 namespace Redux
 {
     /// <summary>
-    /// Represents a Redux store that manages the state of type T.
+    /// Represents a Redux store.
     /// </summary>
-    /// <typeparam name="TState">Type of the state.</typeparam>
-    internal class Store<TState> : IStore
+    internal class Store : IStore
     {
         /// <summary>
         /// The reducer that is used by the store.
         /// </summary>
-        public Reducer<TState> Reducer { get; private set; }
+        public Reducer Reducer { get; private set; }
 
         /// <summary>
         /// The dispatcher that is invoked from the IStore.Dispatch implementation.
         /// </summary>
         public Action<ReduxAction> Dispatcher { get; set; }
 
-        private TState state;
+        private IState state;
 
         /// <summary>
         /// When invoked, returns the current state of the store.
         /// </summary>
-        public Func<TState> GetState { get; set; }
+        public Func<IState> GetState { get; set; }
 
-        public Store(Reducer<TState> reducer, Func<TState> getPreloadedState)
+        public Store(Reducer reducer, Func<IState> getPreloadedState)
         {
             Reducer = reducer;
 
@@ -58,18 +57,18 @@ namespace Redux
                 throw new ArgumentNullException("action", Properties.Resources.DISPATCH_ACTION_NULL_ERROR);
             }
 
-            TState currentState = GetState();
+            IState currentState = GetState();
             InvokeDispatcher(action);
-            TState nextState = GetState();
+            IState nextState = GetState();
 
             // Emit a StateChange event only if the state has changed.
-            if (!EqualityComparer<TState>.Default.Equals(currentState, nextState))
+            if (!EqualityComparer<IState>.Default.Equals(currentState, nextState))
             {
                 OnStateChange(nextState);
             }
         }
 
-        internal void ReplaceReducer(Reducer<TState> nextReducer)
+        internal void ReplaceReducer(Reducer nextReducer)
         {
             Reducer = nextReducer;
             InvokeDispatcher(ReduxAction.ReplaceReducerAction);
@@ -80,7 +79,7 @@ namespace Redux
             Dispatcher(action);
         }
 
-        private void OnStateChange(TState nextState)
+        private void OnStateChange(IState nextState)
         {
             if (StateChanged != null)
             {
@@ -91,6 +90,6 @@ namespace Redux
         /// <summary>
         /// Invoked whenever the store changes state.
         /// </summary>
-        public event StateChangedEventHandler<TState> StateChanged;
+        public event StateChangedEventHandler StateChanged;
     }
 }

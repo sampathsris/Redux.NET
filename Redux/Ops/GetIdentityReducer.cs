@@ -8,7 +8,7 @@ namespace Redux
         /// it simply returns the previous state.
         /// </summary>
         /// <typeparam name="TState">Type of the reduced state.</typeparam>
-        public static Reducer<TState> GetIdentityReducer<TState>()
+        public static Reducer GetIdentityReducer()
         {
             return (state, action) => state;
         }

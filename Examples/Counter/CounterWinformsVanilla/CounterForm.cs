@@ -20,13 +20,13 @@ namespace CounterWinformsVanilla
             SetupReduxStore();
         }
 
-        IStore store;
+        PrimitiveStore<int> store;
 
         private void SetupReduxStore()
         {
             store = Ops.CreateStore<int>(Counter.Reduce);
             store.Subscribe<int>(StoreStateChanged);
-            SetLabel(store.GetState<int>());
+            SetLabel(store.State);
         }
 
         private void StoreStateChanged(IStore store, int state)

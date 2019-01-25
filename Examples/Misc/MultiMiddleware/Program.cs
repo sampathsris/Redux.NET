@@ -8,10 +8,10 @@ namespace MultiMiddleware
     {
         static void Main(string[] args)
         {
-            var thunkMiddleware = StandardMiddleware.CreateThunkMiddleware<int>();
-            var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware<int>();
-            var thunkFirstEnhancer = Ops.ApplyMiddleware<int>(thunkMiddleware, loggerMiddleware);
-            var loggerFirstEnhancer = Ops.ApplyMiddleware<int>(loggerMiddleware, thunkMiddleware);
+            var thunkMiddleware = StandardMiddleware.CreateThunkMiddleware();
+            var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware();
+            var thunkFirstEnhancer = Ops.ApplyMiddleware(thunkMiddleware, loggerMiddleware);
+            var loggerFirstEnhancer = Ops.ApplyMiddleware(loggerMiddleware, thunkMiddleware);
 
             CreateTestWithEnhancer("Thunk first", thunkFirstEnhancer);
             CreateTestWithEnhancer("Logger first", loggerFirstEnhancer);
@@ -23,33 +23,33 @@ namespace MultiMiddleware
             // first, and it in turn calls the other middleware.
         }
 
-        private static void CreateTestWithEnhancer(string testName, StoreEnhancer<int> enhancer)
+        private static void CreateTestWithEnhancer(string testName, StoreEnhancer enhancer)
         {
-            IStore counterStore = null;
-            counterStore = Ops.CreateStore<int>(Counter.Reduce, () => 101, enhancer);
-            counterStore.Subscribe<int>((IStore store, int state) =>
-            {
-                Console.WriteLine("[{0}] counter: {1}", testName, state);
-            });
+            //PrimitiveStore<int> counterStore = null;
+            //counterStore = Ops.CreateStore<int>(Counter.Reduce, 101, enhancer);
+            //counterStore.Subscribe<int>((IStore store, int state) =>
+            //{
+            //    Console.WriteLine("[{0}] counter: {1}", testName, state);
+            //});
 
-            ReduxThunk<int> incrementIfOdd = (dispatch, getState) =>
-            {
-                var count = getState();
-                Console.WriteLine("[{0}] incrementIfOdd called. counter: {1}", testName, count);
+            //ReduxThunk<int> incrementIfOdd = (dispatch, getState) =>
+            //{
+            //    var count = getState();
+            //    Console.WriteLine("[{0}] incrementIfOdd called. counter: {1}", testName, count);
 
-                if (count % 2 != 0)
-                {
-                    dispatch(Counter.Increment());
-                }
-            };
-            var incrementIfOddAction = new ThunkAction<int>("INCREMENT_IF_ODD", incrementIfOdd);
+            //    if (count % 2 != 0)
+            //    {
+            //        dispatch(Counter.Increment());
+            //    }
+            //};
+            //var incrementIfOddAction = new ThunkAction<int>("INCREMENT_IF_ODD", incrementIfOdd);
 
-            Console.WriteLine("[{0}] Initial state: {1}", testName, counterStore.GetState<int>()); // 0
+            //Console.WriteLine("[{0}] Initial state: {1}", testName, counterStore.State); // 0
 
-            counterStore.Dispatch(incrementIfOddAction); // 102
-            counterStore.Dispatch(incrementIfOddAction); // 102, unchanged.
+            //counterStore.Dispatch(incrementIfOddAction); // 102
+            //counterStore.Dispatch(incrementIfOddAction); // 102, unchanged.
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

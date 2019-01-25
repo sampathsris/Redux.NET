@@ -8,13 +8,12 @@ namespace Redux
         /// Creates a middleware that logs all dispatched actions and
         /// subsequent states to the standard output.
         /// </summary>
-        /// <typeparam name="TState">Type of the target store.</typeparam>
         /// <returns>A middleware that logs all dispatched actions and
         /// subsequent states to the standard output.</returns>
-        public static Middleware<TState> CreateStdoutLoggerMiddleware<TState>()
+        public static Middleware CreateStdoutLoggerMiddleware()
         {
             return
-                (Action<ReduxAction> dispatch, Func<TState> getState) =>
+                (Action<ReduxAction> dispatch, Func<IState> getState) =>
                     (Action<ReduxAction> next) =>
                         (ReduxAction action) =>
                 {

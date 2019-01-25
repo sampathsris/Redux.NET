@@ -5,46 +5,42 @@ namespace Redux
     public static partial class Ops
     {
         /// <summary>
-        /// Creates a Redux store that serves a given type TState.
+        /// Creates a Redux store.
         /// </summary>
-        /// <typeparam name="TState">Type of the reduced state.</typeparam>
         /// <param name="reducer">Reducer function.</param>
         /// <returns>The created Redux store.</returns>
-        public static IStore CreateStore<TState>(
-            Reducer<TState> reducer)
+        public static IStore CreateStore(
+            Reducer reducer)
         {
-            return CreateStore<TState>(reducer, null, null);
+            return CreateStore(reducer, null, null);
         }
 
         /// <summary>
-        /// Creates a Redux store that serves a given type TState with pre-loaded state.
+        /// Creates a Redux store with pre-loaded state.
         /// </summary>
-        /// <typeparam name="TState">Type of the reduced state.</typeparam>
         /// <param name="reducer">Reducer function.</param>
         /// <param name="getPreloadedState">A function that can be called to retrieve
         /// the initial state to pre-load the store.</param>
         /// <returns>The created Redux store.</returns>
-        public static IStore CreateStore<TState>(
-            Reducer<TState> reducer,
-            Func<TState> getPreloadedState)
+        public static IStore CreateStore(
+            Reducer reducer,
+            Func<IState> getPreloadedState)
         {
-            return CreateStore<TState>(reducer, getPreloadedState, null);
+            return CreateStore(reducer, getPreloadedState, null);
         }
 
         /// <summary>
-        /// Creates a Redux store that serves a given type TState with pre-loaded state and
-        /// an enhancer.
+        /// Creates a Redux store with pre-loaded state and an enhancer.
         /// </summary>
-        /// <typeparam name="TState">Type of the reduced state.</typeparam>
         /// <param name="reducer">Reducer function.</param>
         /// <param name="getPreloadedState">A function that can be called to retrieve
         /// the initial state to pre-load the store.</param>
         /// <param name="enhancer">Enhancer function that enhances the store.</param>
         /// <returns>The created Redux store.</returns>
-        public static IStore CreateStore<TState>(
-            Reducer<TState> reducer,
-            Func<TState> getPreloadedState,
-            StoreEnhancer<TState> enhancer)
+        public static IStore CreateStore(
+            Reducer reducer,
+            Func<IState> getPreloadedState,
+            StoreEnhancer enhancer)
         {
             IStore store;
 
@@ -56,7 +52,7 @@ namespace Redux
             }
             else
             {
-                store = new Store<TState>(reducer, getPreloadedState);
+                store = new Store(reducer, getPreloadedState);
             }
 
             // Initialize the store.

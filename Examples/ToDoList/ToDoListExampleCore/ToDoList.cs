@@ -1,9 +1,11 @@
 ﻿using Redux;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ToDoListExampleCore
 {
-    public static class ToDoList
+    public class ToDoList: IState
     {
         const string ADD_TODO = "ADD_TODO";
         const string TOGGLE_TODO = "TOGGLE_TODO";
@@ -18,14 +20,14 @@ namespace ToDoListExampleCore
             return new ReduxAction<string>(TOGGLE_TODO, todo);
         }
 
-        public static IDictionary<string, bool> Reduce(IDictionary<string, bool> state, ReduxAction action)
+        public static IState Reduce(IState state, ReduxAction action)
         {
             if (state == null)
             {
-                return new Dictionary<string, bool>();
+                return new ToDoList();
             }
 
-            Dictionary<string, bool> newTodoList = null;
+            var prevList = state as ToDoList;
             string todo = null;
 
             if (action.ActionType == ADD_TODO || action.ActionType == TOGGLE_TODO)
@@ -36,20 +38,45 @@ namespace ToDoListExampleCore
             switch (action.ActionType)
             {
                 case ADD_TODO:
-                    newTodoList = new Dictionary<string, bool>(state);
-                    newTodoList.Add(todo, false);
-                    return newTodoList;
+                    return prevList.Add(todo, false);
                 case TOGGLE_TODO:
-                    newTodoList = new Dictionary<string, bool>();
-                    foreach (var item in state)
-                    {
-                        bool value = (item.Key == todo) ? (!item.Value) : item.Value;
-                        newTodoList.Add(item.Key, value);
-                    }
-                    return newTodoList;
+                    return prevList.Toggle(todo);
                 default:
-                    return state;
+                    return prevList;
             }
+        }
+
+        // The following code is a monstrosity. Must find a way to efficiently
+        // handle immutable objects.
+        private IDictionary<string, bool> todos = new Dictionary<string, bool>();
+
+        public ToDoList() { }
+
+        private ToDoList(ToDoList other)
+        {
+            this.todos = new Dictionary<string, bool>(other.todos);
+        }
+
+        public ToDoList Add(string todo, bool completed)
+        {
+            var newList = new ToDoList(this);
+            newList.todos.Add(todo, completed);
+            return newList;
+        }
+
+        public ToDoList Toggle(string todo)
+        {
+            var newList = new ToDoList(this);
+            var prevCompleted = newList.todos[todo];
+            newList.todos[todo] = !prevCompleted;
+            return newList;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(Environment.NewLine, todos.Select(
+                kvp => (kvp.Value ? "[x]" : "[ ]") + " " + kvp.Key)
+            );
         }
     }
 }

@@ -6,14 +6,14 @@ namespace CounterExample
 {
     class Program
     {
-        private static IStore counterStore = null;
+        private static PrimitiveStore<int> counterStore = null;
 
         static void Main(string[] args)
         {
             counterStore = Ops.CreateStore<int>(Counter.Reduce);
             counterStore.Subscribe<int>(CounterStoreStateChanged);
 
-            Console.WriteLine("Initial state: " + counterStore.GetState<int>()); // 0
+            Console.WriteLine("Initial state: " + counterStore.State); // 0
 
             SendAction(Counter.Increment()); // 1
             SendAction(Counter.Decrement()); // 0

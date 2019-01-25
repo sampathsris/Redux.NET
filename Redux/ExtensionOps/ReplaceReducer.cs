@@ -6,12 +6,11 @@ namespace Redux
         /// <summary>
         /// Replaces the reducer that is currently being used by the store.
         /// </summary>
-        /// <typeparam name="TState">Type of the reduced state.</typeparam>
         /// <param name="store"></param>
         /// <param name="nextReducer">New reducer to replace the old one.</param>
-        public static void ReplaceReducer<TState>(this IStore store, Reducer<TState> nextReducer)
+        public static void ReplaceReducer(this IStore store, Reducer nextReducer)
         {
-            store.GetStore<TState>().ReplaceReducer(nextReducer);
+            store.GetStore().ReplaceReducer(nextReducer);
         }
     }
 }

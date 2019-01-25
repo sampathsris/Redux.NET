@@ -4,9 +4,21 @@ namespace Redux
 {
     public static partial class ExtensionOps
     {
-        internal static Store<TState> GetStore<TState>(this IStore store)
+        internal static Store GetStore(this IStore store)
         {
-            Store<TState> realStore = store as Store<TState>;
+            Store realStore = store as Store;
+
+            if (realStore == null)
+            {
+                throw new InvalidOperationException(Properties.Resources.STORE_TYPEPARAM_INCORRECT_ERROR);
+            }
+
+            return realStore;
+        }
+
+        internal static PrimitiveStore<TState> GetStore<TState>(this IStore store) where TState: struct
+        {
+            PrimitiveStore<TState> realStore = store as PrimitiveStore<TState>;
 
             if (realStore == null)
             {

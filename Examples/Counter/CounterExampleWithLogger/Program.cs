@@ -6,16 +6,16 @@ namespace CounterExampleWithLogger
 {
     class Program
     {
-        private static IStore counterStore = null;
+        private static PrimitiveStore<int> counterStore = null;
 
         static void Main(string[] args)
         {
-            var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware<int>();
-            var enhancer = Ops.ApplyMiddleware<int>(loggerMiddleware);
-            counterStore = Ops.CreateStore<int>(Counter.Reduce, null, enhancer);
+            var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware();
+            var enhancer = Ops.ApplyMiddleware(loggerMiddleware);
+            counterStore = Ops.CreateStore<int>(Counter.Reduce, 0, enhancer);
             counterStore.Subscribe<int>(CounterStoreStateChanged);
 
-            Console.WriteLine("Initial state: " + counterStore.GetState<int>()); // 0
+            Console.WriteLine("Initial state: " + counterStore.State); // 0
 
             counterStore.Dispatch(Counter.Increment()); // 1
             counterStore.Dispatch(Counter.Decrement()); // 0

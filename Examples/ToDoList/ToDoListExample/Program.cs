@@ -1,9 +1,7 @@
 ﻿using Redux;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using ToDoListExampleCore;
-
-using ToDoObj = System.Collections.Generic.IDictionary<string, bool>;
 
 namespace ToDoListExample
 {
@@ -17,8 +15,8 @@ namespace ToDoListExample
             string b = "Play with Redux";
             string c = "Implement Redux in .NET";
 
-            todoListStore = Ops.CreateStore<ToDoObj>(ToDoList.Reduce);
-            todoListStore.Subscribe<ToDoObj>(ToDoListStateChanged);
+            todoListStore = Ops.CreateStore(ToDoList.Reduce);
+            todoListStore.Subscribe(ToDoListStateChanged);
 
             SendAction(ToDoList.AddTodo(a));
             SendAction(ToDoList.AddTodo(b));
@@ -30,11 +28,9 @@ namespace ToDoListExample
             Console.ReadKey();
         }
 
-        private static void ToDoListStateChanged(IStore store, ToDoObj state)
+        private static void ToDoListStateChanged(IStore store, IState state)
         {
-            Console.WriteLine(string.Join(Environment.NewLine, state.Select(
-                kvp => (kvp.Value ? "[x]" : "[ ]") + " " + kvp.Key)
-            ));
+            Console.WriteLine(state);
         }
 
         private static void SendAction(ReduxAction action)
