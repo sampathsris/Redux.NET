@@ -1,10 +1,15 @@
-﻿
-namespace Redux
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Redux.Primitives
 {
     /// <summary>
-    /// Represents a Redux store.
+    /// Represents a primitive Redux store.
     /// </summary>
-    public interface IStore
+    public interface IStore<TState>
     {
         /// <summary>
         /// Dispatches an action to the Store.
@@ -15,7 +20,7 @@ namespace Redux
         /// <summary>
         /// Returns the state of the store.
         /// </summary>
-        IState State
+        TState State
         {
             get;
         }
@@ -23,12 +28,12 @@ namespace Redux
         /// <summary>
         /// Invoked whenever the store changes state.
         /// </summary>
-        event StateChangedEventHandler StateChanged;
+        event StateChangedEventHandler<TState> StateChanged;
 
         /// <summary>
         /// Replaces the existing reducer with a new reducer.
         /// </summary>
         /// <param name="reducer">Reducer to be replaced with</param>
-        void ReplaceReducer(Reducer nextReducer);
+        void ReplaceReducer(Reducer<TState> nextReducer);
     }
 }

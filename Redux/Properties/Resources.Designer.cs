@@ -106,7 +106,7 @@ namespace Redux.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New State:.
+        ///   Looks up a localized string similar to New StateWrapper:.
         /// </summary>
         internal static string STDOUT_LOGGER_MW_NEW_STATE {
             get {

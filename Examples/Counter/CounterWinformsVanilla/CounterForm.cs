@@ -1,5 +1,6 @@
 ﻿using CounterExampleCore;
 using Redux;
+using Redux.Primitives;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,16 +21,16 @@ namespace CounterWinformsVanilla
             SetupReduxStore();
         }
 
-        PrimitiveStore<int> store;
+        IStore<int> store;
 
         private void SetupReduxStore()
         {
-            store = Ops.CreateStore<int>(Counter.Reduce);
-            store.Subscribe<int>(StoreStateChanged);
+            store = Ops<int>.CreateStore(Counter.Reduce);
+            store.StateChanged += StoreStateChanged;
             SetLabel(store.State);
         }
 
-        private void StoreStateChanged(IStore store, int state)
+        private void StoreStateChanged(object sender, int state)
         {
             SetLabel(state);
         }

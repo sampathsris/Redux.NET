@@ -1,17 +1,18 @@
 ﻿using CounterExampleCore;
 using Redux;
+using Redux.Primitives;
 using System;
 
 namespace CounterExample
 {
     class Program
     {
-        private static PrimitiveStore<int> counterStore = null;
+        private static IStore<int> counterStore = null;
 
         static void Main(string[] args)
         {
-            counterStore = Ops.CreateStore<int>(Counter.Reduce);
-            counterStore.Subscribe<int>(CounterStoreStateChanged);
+            counterStore = Ops<int>.CreateStore(Counter.Reduce);
+            counterStore.StateChanged += CounterStoreStateChanged;
 
             Console.WriteLine("Initial state: " + counterStore.State); // 0
 
@@ -29,7 +30,7 @@ namespace CounterExample
             Console.ReadKey();
         }
 
-        private static void CounterStoreStateChanged(IStore store, int state)
+        private static void CounterStoreStateChanged(object sender, int state)
         {
             Console.WriteLine("State: " + state);
         }

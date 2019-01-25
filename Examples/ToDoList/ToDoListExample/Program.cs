@@ -16,7 +16,7 @@ namespace ToDoListExample
             string c = "Implement Redux in .NET";
 
             todoListStore = Ops.CreateStore(ToDoList.Reduce);
-            todoListStore.Subscribe(ToDoListStateChanged);
+            todoListStore.StateChanged += ToDoListStateChanged;
 
             SendAction(ToDoList.AddTodo(a));
             SendAction(ToDoList.AddTodo(b));
@@ -28,7 +28,7 @@ namespace ToDoListExample
             Console.ReadKey();
         }
 
-        private static void ToDoListStateChanged(IStore store, IState state)
+        private static void ToDoListStateChanged(object sender, IState state)
         {
             Console.WriteLine(state);
         }

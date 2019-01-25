@@ -18,7 +18,10 @@ namespace Redux
                 (Reducer reducer, Func<IState> getPreloadedState, StoreEnhancer enhancer) =>
                 {
                     IStore store = storeCreator(reducer, getPreloadedState, enhancer);
-                    var realStore = store.GetStore();
+                    var realStore = store as Store;
+                    // No need to null-check realStore, as we are guaranteed that store
+                    // must be an instance of Store.
+
                     Action<ReduxAction> originalDispatch = realStore.Dispatcher;
                     Func<IState> getState = realStore.GetState;
 

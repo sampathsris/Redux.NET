@@ -1,19 +1,20 @@
 ﻿using CounterExampleCore;
 using Redux;
+using Redux.Primitives;
 using System;
 
 namespace CounterExamplePreloaded
 {
     class Program
     {
-        private static PrimitiveStore<int> counterStore = null;
+        private static IStore<int> counterStore = null;
 
         static void Main(string[] args)
         {
             var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware();
-            var enhancer = Ops.ApplyMiddleware(loggerMiddleware);
+            var enhancer = Redux.Ops.ApplyMiddleware(loggerMiddleware);
             // Create the store with preloaded value of 100.
-            counterStore = Ops.CreateStore<int>(Counter.Reduce, 100, enhancer);
+            counterStore = Ops<int>.CreateStore(Counter.Reduce, 100, enhancer);
 
             Console.WriteLine("Initial state: " + counterStore.State); // 0
 

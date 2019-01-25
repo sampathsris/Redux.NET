@@ -1,19 +1,20 @@
 ﻿using CounterExampleCore;
 using Redux;
+using Redux.Primitives;
 using System;
 
 namespace CounterExampleWithLogger
 {
     class Program
     {
-        private static PrimitiveStore<int> counterStore = null;
+        private static IStore<int> counterStore = null;
 
         static void Main(string[] args)
         {
             var loggerMiddleware = StandardMiddleware.CreateStdoutLoggerMiddleware();
-            var enhancer = Ops.ApplyMiddleware(loggerMiddleware);
-            counterStore = Ops.CreateStore<int>(Counter.Reduce, 0, enhancer);
-            counterStore.Subscribe<int>(CounterStoreStateChanged);
+            var enhancer = Redux.Ops.ApplyMiddleware(loggerMiddleware);
+            counterStore = Ops<int>.CreateStore(Counter.Reduce, 0, enhancer);
+            counterStore.StateChanged += CounterStoreStateChanged;
 
             Console.WriteLine("Initial state: " + counterStore.State); // 0
 
@@ -31,7 +32,7 @@ namespace CounterExampleWithLogger
             Console.ReadKey();
         }
 
-        private static void CounterStoreStateChanged(IStore store, int state)
+        private static void CounterStoreStateChanged(object sender, int state)
         {
             Console.WriteLine("CounterStoreStateChanged: {0}", state);
         }

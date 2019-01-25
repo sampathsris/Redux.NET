@@ -1,12 +1,13 @@
 ﻿using CounterExampleCore;
 using Redux;
+using Redux.Primitives;
 using System;
 
 namespace ThunkedCounter
 {
     class Program
     {
-        private static PrimitiveStore<int> counterStore = null;
+        private static IStore<int> counterStore = null;
 
         static void Main(string[] args)
         {
@@ -27,7 +28,7 @@ namespace ThunkedCounter
             //    };
             //var incrementIfOddAction = new ThunkAction<int>("INCREMENT_IF_ODD", incrementIfOdd);
 
-            //Console.WriteLine("Initial state: " + counterStore.State); // 0
+            //Console.WriteLine("Initial state: " + counterStore.StateWrapper); // 0
 
             //counterStore.Dispatch(incrementIfOddAction); // 102
             //counterStore.Dispatch(incrementIfOddAction); // 102, unchanged.

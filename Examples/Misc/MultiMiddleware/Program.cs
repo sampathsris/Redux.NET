@@ -25,7 +25,7 @@ namespace MultiMiddleware
 
         private static void CreateTestWithEnhancer(string testName, StoreEnhancer enhancer)
         {
-            //PrimitiveStore<int> counterStore = null;
+            //Store<int> counterStore = null;
             //counterStore = Ops.CreateStore<int>(Counter.Reduce, 101, enhancer);
             //counterStore.Subscribe<int>((IStore store, int state) =>
             //{
@@ -44,7 +44,7 @@ namespace MultiMiddleware
             //};
             //var incrementIfOddAction = new ThunkAction<int>("INCREMENT_IF_ODD", incrementIfOdd);
 
-            //Console.WriteLine("[{0}] Initial state: {1}", testName, counterStore.State); // 0
+            //Console.WriteLine("[{0}] Initial state: {1}", testName, counterStore.StateWrapper); // 0
 
             //counterStore.Dispatch(incrementIfOddAction); // 102
             //counterStore.Dispatch(incrementIfOddAction); // 102, unchanged.

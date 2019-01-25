@@ -43,14 +43,16 @@
   <ItemGroup>
     <Compile Include="Delegates\Reducer.cs" />
     <Compile Include="Delegates\StoreEnhancer.cs" />
-    <Compile Include="ExtensionOps\GetState.cs" />
-    <Compile Include="ExtensionOps\GetStore.cs" />
-    <Compile Include="ExtensionOps\Subscribe.cs" />
     <Compile Include="IState.cs" />
     <Compile Include="Ops\GetIdentityReducer.cs" />
-    <Compile Include="ExtensionOps\ReplaceReducer.cs" />
-    <Compile Include="Primitives\CreatePrimitiveStore.cs" />
-    <Compile Include="Primitives\PrimitiveStateChangedEventHandler.cs" />
+    <Compile Include="Primitives\CreateStore.cs" />
+    <Compile Include="Primitives\ExtensionOps.cs" />
+    <Compile Include="Primitives\IStore.cs" />
+    <Compile Include="Primitives\Reducer.cs" />
+    <Compile Include="Primitives\StateChangedEventHandler.cs" />
+    <Compile Include="Primitives\StateWrapper.cs" />
+    <Compile Include="Primitives\Store.cs" />
+    <Compile Include="Primitives\WrapReducer.cs" />
     <Compile Include="ReduxAction.cs" />
     <Compile Include="Delegates\Middleware.cs" />
     <Compile Include="Delegates\MiddlewareImplementation.cs" />

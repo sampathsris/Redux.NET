@@ -4,10 +4,10 @@ namespace Redux
     /// <summary>
     /// An event handler that handles a StateChanged event of a store.
     /// </summary>
-    /// <param name="store">The store that publishes the event.</param>
-    /// <param name="state">State of the store that publishes the event.</param>
+    /// <param name="sender">The store that publishes the event.</param>
+    /// <param name="state">StateWrapper of the store that publishes the event.</param>
     public delegate void StateChangedEventHandler(
-        IStore store,
+        object sender,
         IState state
     );
 }

@@ -25,6 +25,17 @@ namespace Redux
         /// </summary>
         public Func<IState> GetState { get; set; }
 
+        /// <summary>
+        /// Returns the state of the store.
+        /// </summary>
+        public IState State
+        {
+            get
+            {
+                return GetState();
+            }
+        }
+
         public Store(Reducer reducer, Func<IState> getPreloadedState)
         {
             Reducer = reducer;
@@ -68,7 +79,7 @@ namespace Redux
             }
         }
 
-        internal void ReplaceReducer(Reducer nextReducer)
+        public void ReplaceReducer(Reducer nextReducer)
         {
             Reducer = nextReducer;
             InvokeDispatcher(ReduxAction.ReplaceReducerAction);
